@@ -1,6 +1,6 @@
 from pydantic import Field
 
-from blog.schemas.base import BaseSchema
+from schemas.base import BaseSchema
 
 
 class PostCategory(BaseSchema):

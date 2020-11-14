@@ -1,10 +1,18 @@
 from datetime import datetime
+from typing import Optional
 
 from pydantic import Field
-from pydantic.main import Model
+from pydantic import BaseModel
 
 
-class BaseSchema(Model):
-    id: str = Field(...)
-    created: datetime = Field(..., default_factory=datetime.now, description='创建日期', )
-    updated: datetime = Field(..., default_factory=datetime.now, description='更新日期')
+class BaseSchema(BaseModel):
+    pass
+
+
+class IdMixin(BaseModel):
+    id: int = Field(...)
+
+
+class DateTimeMixin(BaseModel):
+    created: datetime = Field(default_factory=datetime.now)
+    updated: datetime = Field(default_factory=datetime.now)
