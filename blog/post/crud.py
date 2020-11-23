@@ -16,7 +16,7 @@ def retrive_post_by_id(id: int):
     return post
 
 
-def update_post(id: int, post: PostUpdate):
+def update_post_by_id(id: int, post: PostUpdate):
     PostModel.update(**post.dict(exclude_unset=True)).where(PostModel.id == id).execute()
 
 
@@ -33,8 +33,8 @@ def retrive_post_category_by_id(id: int):
     return category
 
 
-def update_post_category(category: PostCategoryIn):
-    PostCategoryModel.update(**category.dict())
+def update_post_category_by_id(id:int, category: PostCategory):
+    PostCategoryModel.update(**category.dict()).where(PostCategoryModel.id == id).execute()
 
 
 def delete_post_category_by_id(id: int):

@@ -100,7 +100,7 @@ async def update_post(
     post: PostUpdate,
     post_id: int = Path(..., gt=0, description='文章 id')
 ):
-    crud.update_post(post_id, post)
+    crud.update_post_by_id(post_id, post)
     return {
         'status': 'ok'
     }
@@ -115,7 +115,7 @@ async def update_post_category(
     post_category: PostCategory,
     post_category_id: int = Path(..., gt=0)
 ):
-    crud.update_post_category(post_category_id, post_category)
+    crud.update_post_category_by_id(post_category_id, post_category)
     return {
         'status': 'ok'
     }
