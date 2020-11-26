@@ -23,7 +23,7 @@ async def create_post(
 
 
 @router.get(
-    '/list',
+    '/',
     response_model=PostOutList,
     description='',
     summary='所有文章（分页）'
