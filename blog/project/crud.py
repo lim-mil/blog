@@ -1,5 +1,6 @@
 from project.model import ProjectModel, ProjectCategoryModel
-from project.schemas import ProjectOut, ProjectCategory, ProjectCategoryOut, ProjectUpdate, ProjectCategoryIn
+from project.schemas import ProjectOut, ProjectCategory, ProjectCategoryOut, ProjectUpdate, ProjectCategoryIn, \
+    CategoryProjectOut
 
 
 def create_project(project):
@@ -37,3 +38,17 @@ def update_project_category_by_id(id: int, category: ProjectCategoryIn):
 
 def delete_project_category_by_id(id: int):
     ProjectCategoryModel.delete().where(ProjectCategoryModel.id == id).execute()
+
+
+def list_project_category():
+    categories_model: ProjectCategoryModel = ProjectCategoryModel.select()
+    result = []
+    for category_model in categories_model:
+        category: ProjectCategoryOut = ProjectCategoryOut.from_orm(category_model)
+        category.projects = []
+        for project_id in category_model.projects_set:
+            project_model = ProjectModel.get_by_id(project_id)
+            project = CategoryProjectOut.from_orm(project_model)
+            category.projects.append(project)
+        result.append(category)
+    return result

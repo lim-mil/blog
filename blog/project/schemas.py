@@ -1,4 +1,4 @@
-from typing import Optional
+from typing import Optional, List
 
 from pydantic import Field
 
@@ -28,16 +28,12 @@ class ProjectCategoryIn(ProjectCategory):
     pass
 
 
-class ProjectCategoryOut(ProjectCategory, IdMixin, DatetimeMixin):
+class CategoryProjectOut(Project, IdMixin, DatetimeMixin):
     pass
 
 
-class ProjectOutList(BaseSchema):
-    project_list: Optional[ProjectOut]
-
-
-class ProjectCategoryOutList(BaseSchema):
-    Project_category_list: Optional[ProjectCategoryOut]
+class ProjectCategoryOut(ProjectCategory, IdMixin, DatetimeMixin):
+    projects: Optional[List[CategoryProjectOut]]
 
 
 class ProjectUpdate(BaseSchema):
