@@ -9,7 +9,7 @@ router = APIRouter()
 
 
 @router.get(
-    '/category/list',
+    '/categories',
     description='',
     summary='获取所有任务分类',
     response_model=List[ProjectCategoryOut]
