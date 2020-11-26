@@ -26,13 +26,13 @@ def start():
     sqlite_connect()
     app.include_router(
         router=post_router,
-        prefix='/post',
-        tags=['post'],
+        prefix='/posts',
+        tags=['posts'],
     )
     app.include_router(
         router=project_router,
-        prefix='/project',
-        tags=['project']
+        prefix='/projects',
+        tags=['projects']
     )
 
 

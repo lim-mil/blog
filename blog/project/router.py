@@ -33,7 +33,7 @@ async def create_project(
 
 
 @router.post(
-    '/category',
+    '/categories',
     description='',
     summary='创建分类'
 )

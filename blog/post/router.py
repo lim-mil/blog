@@ -50,7 +50,7 @@ async def retrive_post(
 
 
 @router.post(
-    '/category',
+    '/categories',
     description='',
     summary='创建文章分类'
 )
@@ -78,7 +78,7 @@ async def delete_post(
 
 
 @router.delete(
-    '/category/{post_category_id}',
+    '/categories/{post_category_id}',
     description='',
     summary='删除文章分类（id）'
 )
@@ -107,7 +107,7 @@ async def update_post(
 
 
 @router.patch(
-    '/category/{post_category_id}',
+    '/categories/{post_category_id}',
     description='',
     summary='更改分类'
 )
@@ -122,7 +122,7 @@ async def update_post_category(
 
 
 @router.get(
-    '/category/list',
+    '/categories/',
     description='',
     summary='所有分类',
     response_model=List[PostCategoryOut],
