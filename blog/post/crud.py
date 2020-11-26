@@ -2,7 +2,7 @@ from typing import Optional
 
 from post.models import PostModel, PostCategoryModel
 from post.schemas import PostIn, PostCategory, PostCategoryIn, PostOut, PostCategoryOut, PostOutList, PostUpdate, \
-    PostCategoryList
+    PostOutListItem, CategoryPostOut
 
 
 def create_post(post: PostIn):
@@ -48,17 +48,28 @@ def list_post(page: Optional[int], step: Optional[int]):
         post_list_model = PostModel.select()
     result = PostOutList()
     for post_model in post_list_model:
-        post = PostOut.from_orm(post_model)
+        post = PostOutListItem.from_orm(post_model)
         post.category = PostCategoryOut.from_orm(PostCategoryModel.get_by_id(post_model.category_id))
         result.post_list.append(post)
     return result
 
 
 def list_post_category():
-    category_list = PostCategoryModel.select()
-    result = PostCategoryList()
-    for category in category_list:
-        result.post_cateogry_list.append(PostCategoryOut.from_orm(category))
+    """
+    所有文章分类
+    :return:
+    """
+    category_models = PostCategoryModel.select()
+    result = []
+    for category_model in category_models:
+        category_model: PostCategoryModel
+        category: PostCategoryOut = PostCategoryOut.from_orm(category_model)
+        category.posts = []
+        for post_id in category_model.posts_set:
+            post_model = PostModel.get_by_id(post_id)
+            post = CategoryPostOut.from_orm(post_model)
+            category.posts.append(post)
+        result.append(PostCategoryOut.from_orm(category))
     return result
 
 

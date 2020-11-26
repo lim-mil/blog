@@ -20,3 +20,8 @@ class PostModel(BaseModel):
 
 class PostCategoryModel(BaseModel):
     name = CharField(max_length=64, index=True)
+
+    @property
+    def posts_set(self):
+        posts = PostModel.select(PostModel.id).where(PostModel.category_id == self.id)
+        return set(post.id for post in posts)

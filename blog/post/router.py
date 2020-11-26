@@ -1,9 +1,9 @@
-from typing import Optional
+from typing import Optional, List
 
 from fastapi import APIRouter, Path, Query
 
 from post import crud
-from post.schemas import PostIn, PostOut, PostCategoryIn, PostOutList, PostUpdate, PostCategory, PostCategoryList
+from post.schemas import PostIn, PostOut, PostCategoryIn, PostOutList, PostUpdate, PostCategory, PostCategoryOut
 
 router = APIRouter()
 
@@ -32,8 +32,8 @@ async def list_post(
     page: Optional[int] = Query(None, ge=1, description='页数，不传则默认获取全部'),
     step: Optional[int] = Query(None, ge=1, description='偏移，不传则默认获取全部')
 ):
-    post_list = crud.list_post(page, step)
-    return post_list
+    posts = crud.list_post(page, step)
+    return posts
 
 
 @router.get(
@@ -125,7 +125,7 @@ async def update_post_category(
     '/category/list',
     description='',
     summary='所有分类',
-    response_model=PostCategoryList
+    response_model=List[PostCategoryOut],
 )
 async def list_post_category():
     return crud.list_post_category()

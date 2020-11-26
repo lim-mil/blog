@@ -1,14 +1,14 @@
 from datetime import datetime
 
-from peewee import Model, AutoField, DateTimeField
+from peewee import Model, AutoField, DateTimeField, TimestampField
 
 from db.databases import sqlite_db
 
 
 class BaseModel(Model):
     id = AutoField(index=True, primary_key=True)
-    created = DateTimeField(default=datetime.now)
-    updated = DateTimeField(default=datetime.now)
+    created = TimestampField(default=datetime.now)
+    updated = TimestampField(default=datetime.now)
 
     class Meta:
         database = sqlite_db
