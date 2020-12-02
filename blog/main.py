@@ -6,6 +6,7 @@ from fastapi.staticfiles import StaticFiles
 from blog.db.connetctions import sqlite_connect
 from blog.post.router import router as post_router
 from blog.project.router import router as project_router
+from blog.info.router import router as info_router
 
 
 app = FastAPI()
@@ -36,6 +37,11 @@ def start():
         router=project_router,
         prefix='/projects',
         tags=['projects']
+    )
+    app.include_router(
+        router=info_router,
+        prefix='/info',
+        tags=['info']
     )
 
 
