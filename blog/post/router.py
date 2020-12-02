@@ -2,8 +2,8 @@ from typing import Optional, List
 
 from fastapi import APIRouter, Path, Query
 
-from post import crud
-from post.schemas import PostIn, PostOut, PostCategoryIn, PostOutList, PostUpdate, PostCategory, PostCategoryOut
+from blog.post import crud
+from blog.post.schemas import PostIn, PostOut, PostCategoryIn, PostOutList, PostUpdate, PostCategory, PostCategoryOut
 
 router = APIRouter()
 

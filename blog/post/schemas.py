@@ -2,7 +2,7 @@ from typing import Optional, List
 
 from pydantic import Field
 
-from schemas import BaseSchema, IdMixin, DatetimeMixin
+from blog.schemas import BaseSchema, IdMixin, DatetimeMixin
 
 
 class Post(BaseSchema):

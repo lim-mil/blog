@@ -1,6 +1,6 @@
 from peewee import CharField, IntegerField
 
-from models import BaseModel
+from blog.models import BaseModel
 
 
 PROJECT_STATUS = {

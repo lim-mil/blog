@@ -1,7 +1,6 @@
 from peewee import CharField, TextField, IntegerField
 
-from models import BaseModel
-
+from blog.models import BaseModel
 
 POST_STATUS = {
     'draft': 0,

@@ -2,8 +2,8 @@ from typing import List
 
 from fastapi import APIRouter
 
-from project import crud
-from project.schemas import ProjectCategoryOut, ProjectIn, ProjectCategoryIn
+from blog.project import crud
+from blog.project.schemas import ProjectCategoryOut, ProjectIn, ProjectCategoryIn
 
 router = APIRouter()
 
