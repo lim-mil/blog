@@ -1,10 +1,11 @@
 import uvicorn
 from fastapi import FastAPI
 from fastapi.middleware.cors import CORSMiddleware
+from fastapi.staticfiles import StaticFiles
 
-from db.connetctions import sqlite_connect
-from post.router import router as post_router
-from project.router import router as project_router
+from blog.db.connetctions import sqlite_connect
+from blog.post.router import router as post_router
+from blog.project.router import router as project_router
 
 
 app = FastAPI()
@@ -20,6 +21,8 @@ app.add_middleware(
     allow_methods=["*"],
     allow_headers=["*"],
 )
+
+app.mount('/static', StaticFiles(directory='static'), name='static')
 
 
 def start():
