@@ -9,6 +9,7 @@ class InfoModel(BaseModel):
     location = CharField(max_length=64, index=True)
     job = CharField(max_length=64, index=True)
     about = TextField(index=True)
+    link = CharField(max_length=512, index=True)
 
 
 class BlogrolModel(BaseModel):

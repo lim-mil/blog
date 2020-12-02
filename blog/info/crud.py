@@ -1,5 +1,7 @@
+from typing import List, Optional
+
 from blog.info.models import InfoModel, BlogrolModel
-from blog.info.schemas import InfoOut, InfoIn, BlogrolList, Blogrol, BlogrolIn, AboutOut
+from blog.info.schemas import InfoOut, InfoIn, BlogrolIn, AboutOut, BlogrolOut
 
 
 def retrive_info():
@@ -12,12 +14,12 @@ def create_info(info: InfoIn):
     InfoModel.create(**info.dict())
 
 
-def list_blogrol():
+def list_blogrol() -> Optional[List[BlogrolOut]]:
     blogrols_model = BlogrolModel.select()
-    blogrols = BlogrolList()
+    result = []
     for blogrol_model in blogrols_model:
-        blogrols.blogrols.append(Blogrol.from_orm(blogrol_model))
-    return blogrols
+        result.append(BlogrolOut.from_orm(blogrol_model))
+    return result
 
 
 def create_blogrol(blogrol: BlogrolIn):
@@ -25,6 +27,6 @@ def create_blogrol(blogrol: BlogrolIn):
 
 
 def retrive_about():
-    info_model: InfoModel.InfoModel.select().get()
+    info_model: InfoModel = InfoModel.select().get()
     about = AboutOut.from_orm(info_model)
     return about

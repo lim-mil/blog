@@ -1,7 +1,9 @@
+from typing import List
+
 from fastapi import APIRouter
 
 from blog.info import crud
-from blog.info.schemas import InfoIn, InfoOut, AboutOut, BlogrolIn, BlogrolList
+from blog.info.schemas import InfoIn, InfoOut, AboutOut, BlogrolIn, BlogrolOut
 
 router = APIRouter()
 
@@ -60,7 +62,8 @@ async def create_blogrol(
     '/blogrol',
     description='',
     summary='获取友链',
-    response_model=BlogrolList
+    response_model=List[BlogrolOut],
+
 )
 async def list_blogrol():
-    return crud.list_blogrol().dict()
+    return crud.list_blogrol()

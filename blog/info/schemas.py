@@ -10,6 +10,7 @@ class InfoOut(BaseSchema):
     description: str = Field(..., max_length=256)
     location: str = Field(..., max_length=64)
     job: str = Field(..., max_length=64)
+    link: str = Field(..., max_length=512)
 
 
 class AboutOut(BaseSchema):
@@ -20,14 +21,10 @@ class InfoIn(InfoOut, AboutOut):
     pass
 
 
-class Blogrol(BaseSchema):
+class BlogrolOut(BaseSchema):
     name: str = Field(..., max_length=64)
     link: str = Field(..., max_length=64)
 
 
-class BlogrolList(BaseSchema):
-    blogrols: Optional[List[Blogrol]]
-
-
-class BlogrolIn(Blogrol):
+class BlogrolIn(BlogrolOut):
     pass
