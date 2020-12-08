@@ -4,9 +4,9 @@ from fastapi.middleware.cors import CORSMiddleware
 from fastapi.staticfiles import StaticFiles
 
 from blog.db.connetctions import sqlite_connect
-from blog.post.router import router as post_router
-from blog.project.router import router as project_router
-from blog.info.router import router as info_router
+from blog.app.post.router import router as post_router
+from blog.app.project.router import router as project_router
+from blog.app.info.router import router as info_router
 
 
 app = FastAPI()
@@ -15,6 +15,7 @@ origins = [
     "*"
 ]
 
+# 跨域
 app.add_middleware(
     CORSMiddleware,
     allow_origins=origins,
@@ -23,6 +24,7 @@ app.add_middleware(
     allow_headers=["*"],
 )
 
+# 静态资源
 app.mount('/static', StaticFiles(directory='static'), name='static')
 
 

@@ -1,7 +1,7 @@
 from typing import Optional
 
-from blog.post.models import PostModel, PostCategoryModel
-from blog.post.schemas import PostIn, PostCategory, PostCategoryIn, PostOut, PostCategoryOut, PostOutList, PostUpdate, \
+from blog.app.post.models import PostModel, PostCategoryModel
+from blog.app.post.schemas import PostIn, PostCategory, PostCategoryIn, PostOut, PostCategoryOut, PostOutList, PostUpdate, \
     PostOutListItem, CategoryPostOut
 
 

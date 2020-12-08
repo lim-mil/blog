@@ -1,5 +1,5 @@
-from blog.project.model import ProjectModel, ProjectCategoryModel
-from blog.project.schemas import ProjectOut, ProjectCategory, ProjectCategoryOut, ProjectUpdate, ProjectCategoryIn, \
+from blog.app.project import ProjectModel, ProjectCategoryModel
+from blog.app.project import ProjectOut, ProjectCategoryOut, ProjectUpdate, ProjectCategoryIn, \
     CategoryProjectOut
 
 
