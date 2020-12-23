@@ -5,7 +5,7 @@ from blog.models import BaseModel
 
 class UserModel(BaseModel):
     username = CharField(max_length=64, index=True)
-    password = CharField(max_length=128, index=True)
+    password = CharField(max_length=512, index=True)
 
 
 class Role(BaseModel):
