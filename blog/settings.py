@@ -5,5 +5,8 @@ SECRET_KEY = 'secret_key'
 ALGORITHM = 'HS256'
 ACCESS_TOKEN_EXPIRE_MINUTES = 30
 
-
-private_path = os.path.join(os.path.dirname(__file__))
+try:
+    if os.path.exists(os.path.join(os.path.dirname(__file__), 'private.py')):
+        from private import *
+except Exception as e:
+    pass
