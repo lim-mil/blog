@@ -1,11 +1,15 @@
 from typing import Optional, List
 
-from fastapi import APIRouter, Path, Query
+from fastapi import APIRouter, Path, Query, Depends
+from fastapi.security import OAuth2PasswordBearer
 
 from blog.app.post import crud
 from blog.app.post.schemas import PostIn, PostOut, PostCategoryIn, PostOutList, PostUpdate, PostCategory, PostCategoryOut
 
 router = APIRouter()
+
+
+oauth2_schema = OAuth2PasswordBearer(tokenUrl='token')
 
 
 @router.post(
@@ -30,8 +34,10 @@ async def create_post(
 )
 async def list_post(
     page: Optional[int] = Query(None, ge=1, description='页数，不传则默认获取全部'),
-    step: Optional[int] = Query(None, ge=1, description='偏移，不传则默认获取全部')
+    step: Optional[int] = Query(None, ge=1, description='偏移，不传则默认获取全部'),
+    toekn: str = Depends(oauth2_schema)
 ):
+    print(toekn)
     posts = crud.list_post(page, step)
     return posts
 

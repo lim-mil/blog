@@ -5,6 +5,7 @@ from fastapi import APIRouter
 from blog.app.project import crud
 from blog.app.project.schemas import ProjectCategoryOut, ProjectIn, ProjectCategoryIn
 
+
 router = APIRouter()
 
 

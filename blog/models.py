@@ -2,7 +2,7 @@ from datetime import datetime
 
 from peewee import Model, AutoField, DateTimeField, TimestampField
 
-from db.databases import sqlite_db
+from blog.db.databases import sqlite_db
 
 
 class BaseModel(Model):
