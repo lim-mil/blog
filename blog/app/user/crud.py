@@ -9,6 +9,13 @@ def create_user(user: User):
     return result
 
 
+def retrive_user_by_username(username: str) -> Optional[User]:
+    result: Optional[UserModel] = UserModel.get_or_none(UserModel.username == username)
+    if result:
+        result = User.from_orm(result)
+    return result
+
+
 def delete_user_by_id(id: int):
     row = UserModel.delete_by_id(id)
     return row

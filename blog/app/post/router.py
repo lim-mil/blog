@@ -5,11 +5,9 @@ from fastapi.security import OAuth2PasswordBearer
 
 from blog.app.post import crud
 from blog.app.post.schemas import PostIn, PostOut, PostCategoryIn, PostOutList, PostUpdate, PostCategory, PostCategoryOut
+from blog.pkg.security import oauth2_schema
 
 router = APIRouter()
-
-
-oauth2_schema = OAuth2PasswordBearer(tokenUrl='token')
 
 
 @router.post(
