@@ -12,6 +12,7 @@ uvicorn = "^0.12.2"
 peewee = "^3.14.0"
 aiofiles = "^0.6.0"
 python-multipart = "^0.0.5"
+pyjwt = "^2.0.0"
 
 [tool.poetry.dev-dependencies]
 pytest = "^5.2"

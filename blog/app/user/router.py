@@ -3,23 +3,25 @@ from fastapi.security import OAuth2PasswordRequestForm
 
 from blog.app.user.schemas import UserIn, User
 from blog.app.user import crud
+from blog.pkg.security import create_jwt_token
 
 router = APIRouter()
 
 
 @router.post(
-    '/login',
+    '/token',
     description='',
-    summary='登录',
+    summary='获取 jwt token',
 )
-async def login(form_data: OAuth2PasswordRequestForm = Depends()):
+async def login_for_access_token(form_data: OAuth2PasswordRequestForm = Depends()):
     user = crud.retrive_user_by_username(form_data.username)
     if not user:
         raise HTTPException(status_code=400, detail='不存在该用户')
     if not form_data.password == user.password:
         raise HTTPException(status_code=400, detail='密码错误')
 
-    return {'access_token': user.username, 'token_type': 'bearer'}
+    token = create_jwt_token()
+    return {'access_token': token, 'token_type': 'bearer'}
 
 
 @router.post(
