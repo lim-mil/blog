@@ -35,7 +35,6 @@ async def list_post(
     step: Optional[int] = Query(None, ge=1, description='偏移，不传则默认获取全部'),
     user: Any = Depends(get_current_user)
 ):
-    print(user)
     posts = crud.list_post(page, step)
     return posts
 

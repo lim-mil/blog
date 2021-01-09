@@ -2,10 +2,11 @@ import datetime
 from typing import Optional
 
 import jwt
-from fastapi import Header, Depends
+from fastapi import Header, Depends, HTTPException
 from fastapi.security import OAuth2PasswordBearer
 
 from blog.app.user.models import UserModel
+from blog.pkg.exception import BAD_REQUEST_400_Exception, FORBIDDEN_403_Exception
 
 oauth2_schema = OAuth2PasswordBearer(tokenUrl='/api/v1/user/token')
 
@@ -44,9 +45,12 @@ def get_current_user(
 ):
     try:
         payload = jwt.decode(token, key=SALT, algorithms=['HS256'])
-    except (jwt.PyJWTError, jwt.ExpiredSignatureError, AttributeError):
-
-        raise Exception('error')
+    except jwt.ExpiredSignatureError:
+        raise FORBIDDEN_403_Exception()
+    except (jwt.PyJWTError, AttributeError):
+        import traceback
+        traceback.print_exc()
+        raise HTTPException
 
     user = UserModel.get_or_none(UserModel.username == payload['username'])
     if user:
