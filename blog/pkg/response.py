@@ -32,40 +32,40 @@ def resp_200(*, data: Any) -> Response:
 def resp_201(*, data: Any) -> Response:
     return JSONResponse(
         status_code=HTTPStatus.CREATED,
-        content=ResponseContent(code=HTTPStatus.CREATED, message='CREATED', data=data).to_dict()
+        content=ResponseContent(code=HTTPStatus.CREATED, message='Created', data=data).to_dict()
     )
 
 
 def resp_400(*, data: Any = None) -> Response:
     return JSONResponse(
         status_code=HTTPStatus.BAD_REQUEST,
-        content=ResponseContent(code=HTTPStatus.BAD_REQUEST, message='BAD REQUEST').to_dict()
+        content=ResponseContent(code=HTTPStatus.BAD_REQUEST, message='Bad Request').to_dict()
     )
 
 
 def resp_401(*, data: Any = None) -> Response:
     return JSONResponse(
         status_code=HTTPStatus.UNAUTHORIZED,
-        content=ResponseContent(code=HTTPStatus.UNAUTHORIZED, message='UNAUTHORIZED').to_dict()
+        content=ResponseContent(code=HTTPStatus.UNAUTHORIZED, message='Unauthorized').to_dict()
     )
 
 
 def resp_403(*, data: Any = None) -> Response:
     return JSONResponse(
         status_code=HTTPStatus.FORBIDDEN,
-        content=ResponseContent(code=HTTPStatus.FORBIDDEN, message='FORBIDDEN').to_dict()
+        content=ResponseContent(code=HTTPStatus.FORBIDDEN, message='Forbidden').to_dict()
     )
 
 
 def resp_404(*, data: Any = None) -> Response:
     return JSONResponse(
         status_code=HTTPStatus.NOT_FOUND,
-        content=ResponseContent(code=HTTPStatus.NOT_FOUND, message='NOT FOUNT').to_dict()
+        content=ResponseContent(code=HTTPStatus.NOT_FOUND, message='Not Found').to_dict()
     )
 
 
 def resp_405(*, data: Any = None) -> Response:
     return JSONResponse(
         status_code=HTTPStatus.METHOD_NOT_ALLOWED,
-        content=ResponseContent(code=HTTPStatus.METHOD_NOT_ALLOWED, message='METHOD NOT ALLOWED').to_dict()
+        content=ResponseContent(code=HTTPStatus.METHOD_NOT_ALLOWED, message='Mmethod Not Allowed').to_dict()
     )

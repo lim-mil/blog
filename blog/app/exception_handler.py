@@ -1,10 +1,9 @@
 from fastapi import Request, FastAPI
-from fastapi.exceptions import RequestValidationError
 from fastapi.exception_handlers import *
 from starlette.exceptions import HTTPException as StarletteHTTPException
 
-from blog.pkg.exception import BAD_REQUEST_400_Exception, FORBIDDEN_403_Exception, UNAUTHORIZED_401_Exception
-from blog.pkg.response import resp_400, resp_403, resp_401
+from blog.pkg.exception import FORBIDDEN_403_Exception, UNAUTHORIZED_401_Exception
+from blog.pkg.response import resp_403, resp_401
 
 
 def register_exception_handlers(app: FastAPI):
