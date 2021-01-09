@@ -21,7 +21,7 @@ async def login_for_access_token(form_data: OAuth2PasswordRequestForm = Depends(
     if not form_data.password == user.password:
         raise FORBIDDEN_403_Exception('密码错误')
 
-    token = create_jwt_token()
+    token = create_jwt_token(user)
     return {'access_token': token, 'token_type': 'bearer'}
 
 
