@@ -37,7 +37,7 @@ def check_jwt_token(
         result = jwt.decode(token, key=SALT, algorithms=['HS256'])
         return result
     except Exception as e:
-        pass
+        raise BAD_REQUEST_400_Exception()
 
 
 def get_current_user(
