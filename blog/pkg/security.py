@@ -36,16 +36,15 @@ def get_current_user(
 ):
     try:
         payload = jwt.decode(token, key=SALT, algorithms=['HS256'])
+        user = UserModel.get_or_none(UserModel.username == payload['username'])
+        if user:
+            return user
+        else:
+            raise UNAUTHORIZED_401_Exception()
     except jwt.ExpiredSignatureError:
         raise FORBIDDEN_403_Exception('jwt token 超时')
     except Exception as e:
         traceback.print_exc()
-
-    user = UserModel.get_or_none(UserModel.username == payload['username'])
-    if user:
-        return user
-    else:
-        raise UNAUTHORIZED_401_Exception()
 
 
 if __name__ == '__main__':
