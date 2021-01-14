@@ -1,6 +1,6 @@
 from typing import Optional, List, Any
 
-from fastapi import APIRouter, Path, Query, Depends
+from fastapi import APIRouter, Path, Query, Depends, Response
 from fastapi.security import OAuth2PasswordBearer
 
 from blog.app.post import crud
@@ -31,10 +31,12 @@ async def create_post(
     summary='所有文章（分页）',
 )
 async def list_post(
+    response: Response,
     page: Optional[int] = Query(None, ge=1, description='页数，不传则默认获取全部'),
     step: Optional[int] = Query(None, ge=1, description='偏移，不传则默认获取全部'),
-    user: Any = Depends(get_current_user)
+    user: Any = Depends(get_current_user),
 ):
+    print(response.body)
     posts = crud.list_post(page, step)
     return posts
 

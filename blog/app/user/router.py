@@ -4,6 +4,7 @@ from fastapi.security import OAuth2PasswordRequestForm
 from blog.app.user.schemas import UserIn, User
 from blog.app.user import crud
 from blog.pkg.exception import UNAUTHORIZED_401_Exception, FORBIDDEN_403_Exception
+from blog.pkg.response import resp_200
 from blog.pkg.security import create_jwt_token
 
 router = APIRouter()
