@@ -27,6 +27,7 @@ async def create_post(
 @router.get(
     '/',
     response_model=PostOutList,
+    response_model_by_alias='data',
     description='',
     summary='所有文章（分页）',
 )
