@@ -1,6 +1,7 @@
 from typing import Optional, List, Any
 
 from fastapi import APIRouter, Path, Query, Depends, Response
+from fastapi.responses import JSONResponse
 from fastapi.security import OAuth2PasswordBearer
 
 from blog.app.post import crud
@@ -30,6 +31,7 @@ async def create_post(
     response_model_by_alias='data',
     description='',
     summary='所有文章（分页）',
+    responses={404: {'content': 'hello'}}
 )
 async def list_post(
     response: Response,
@@ -39,6 +41,7 @@ async def list_post(
 ):
     print(response.body)
     posts = crud.list_post(page, step)
+    return JSONResponse(status_code=404)
     return posts
 
 
