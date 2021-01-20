@@ -1,12 +1,11 @@
 from typing import Optional, List, Any
 
 from fastapi import APIRouter, Path, Query, Depends, Response, HTTPException
-from fastapi.responses import JSONResponse
 from fastapi.security import OAuth2PasswordBearer
 
 from blog.app.post import crud
-from blog.app.post.schemas import PostIn, PostOut, PostCategoryIn, PostUpdate, PostCategory, PostCategoryOut, \
-    PostsResponse
+from blog.app.post.schemas import PostsForResponse, PostInResponse, BasePostCategory, PostInUpdate, \
+    PostInCreate, PostCategoryForResponse, PostCategoriesForResponse, PostForResponse
 from blog.pkg.security import oauth2_schema, get_current_user
 
 router = APIRouter()
@@ -18,7 +17,7 @@ router = APIRouter()
     summary='创建文章'
 )
 async def create_post(
-    post: PostIn
+    post: PostInCreate
 ):
     crud.create_post(post)
     return {
@@ -28,7 +27,7 @@ async def create_post(
 
 @router.get(
     '/',
-    response_model=PostsResponse,
+    response_model=PostsForResponse,
     response_model_by_alias='data',
     description='',
     summary='所有文章（分页）',
@@ -39,20 +38,20 @@ async def list_post(
     user: Any = Depends(get_current_user),
 ):
     posts = crud.list_post(page, step)
-    return PostsResponse(data=posts)
+    return PostsForResponse(data=posts)
 
 
 @router.get(
     '/{post_id}',
-    response_model=PostOut,
+    response_model=PostForResponse,
     description='',
     summary='通过 id 获取文章'
 )
 async def retrive_post(
     post_id: int = Path(..., gt=0, description='文章 id')
 ):
-    post_out = crud.retrive_post_by_id(post_id)
-    return post_out
+    post = crud.retrive_post_by_id(post_id)
+    return PostForResponse(data=post.dict())
 
 
 @router.post(
@@ -61,7 +60,7 @@ async def retrive_post(
     summary='创建文章分类'
 )
 async def create_post_category(
-    post_category: PostCategoryIn,
+    post_category: BasePostCategory,
 ):
     crud.create_post_category(post_category)
     return {
@@ -103,9 +102,11 @@ async def delete_post_category(
     summary='更改文章'
 )
 async def update_post(
-    post: PostUpdate,
+    post: PostInUpdate,
     post_id: int = Path(..., gt=0, description='文章 id')
 ):
+    print(post.dict())
+    print('hello')
     crud.update_post_by_id(post_id, post)
     return {
         'status': 'ok'
@@ -118,20 +119,31 @@ async def update_post(
     summary='更改分类'
 )
 async def update_post_category(
-    post_category: PostCategory,
+    post_category: BasePostCategory,
     post_category_id: int = Path(..., gt=0)
 ):
     crud.update_post_category_by_id(post_category_id, post_category)
-    return {
-        'status': 'ok'
-    }
 
 
 @router.get(
     '/categories/',
     description='',
     summary='所有分类',
-    response_model=List[PostCategoryOut],
+    response_model=PostCategoriesForResponse,
 )
 async def list_post_category():
-    return crud.list_post_category()
+    post_categories = crud.list_post_category()
+    return PostCategoriesForResponse(data=post_categories)
+
+
+@router.get(
+    '/category/{post_category_id}',
+    description='',
+    summary='获取分类（通过id）',
+    response_model=PostCategoryForResponse
+)
+async def retrive_post_category(
+    post_category_id: int = Path(..., gt=0)
+):
+    post_category = crud.retrive_post_category_by_id(post_category_id)
+    return PostCategoryForResponse(data=post_category)

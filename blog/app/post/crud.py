@@ -1,22 +1,23 @@
-from typing import Optional
+from typing import Optional, List
 
 from blog.app.post.models import PostModel, PostCategoryModel
-from blog.app.post.schemas import PostIn, PostCategory, PostCategoryIn, PostOut, PostCategoryOut, PostUpdate, \
-    PostOutListItem, CategoryPostOut, PostsOut
+from blog.app.post.schemas import PostInCreate, PostInResponse, PostCategoryInPost, PostInUpdate, \
+    BasePostCategory, PostInListResponse, PostCategoryInResponse, PostInPostCategory
 
 
-def create_post(post: PostIn):
+def create_post(post: PostInCreate):
     PostModel.create(**post.dict())
 
 
 def retrive_post_by_id(id: int):
     post_model: Optional[PostModel] = PostModel.get_by_id(id)
-    post = PostOut.from_orm(post_model)
-    post.category = PostCategoryOut.from_orm(PostCategoryModel.get_by_id(post_model.category_id))
+    print(post_model.title)
+    post = PostInResponse.from_orm(post_model)
+    post.category = PostCategoryInPost.from_orm(PostCategoryModel.get_by_id(post_model.category_id))
     return post
 
 
-def update_post_by_id(id: int, post: PostUpdate):
+def update_post_by_id(id: int, post: PostInUpdate):
     PostModel.update(**post.dict(exclude_unset=True)).where(PostModel.id == id).execute()
 
 
@@ -24,7 +25,7 @@ def delete_post_by_id(id: int):
     PostModel.delete_by_id(id)
 
 
-def create_post_category(category: PostCategoryIn):
+def create_post_category(category: BasePostCategory):
     PostCategoryModel.create(**category.dict())
 
 
@@ -33,7 +34,7 @@ def retrive_post_category_by_id(id: int):
     return category
 
 
-def update_post_category_by_id(id:int, category: PostCategory):
+def update_post_category_by_id(id:int, category: BasePostCategory):
     PostCategoryModel.update(**category.dict()).where(PostCategoryModel.id == id).execute()
 
 
@@ -46,11 +47,11 @@ def list_post(page: Optional[int], step: Optional[int]):
         post_list_model = PostModel.select().limit(page).offset((page-1) * step)
     else:
         post_list_model = PostModel.select()
-    result = PostsOut()
+    result: List[PostInResponse] = []
     for post_model in post_list_model:
-        post = PostOutListItem.from_orm(post_model)
-        post.category = PostCategoryOut.from_orm(PostCategoryModel.get_by_id(post_model.category_id))
-        result.posts.append(post)
+        post = PostInListResponse.from_orm(post_model)
+        post.category = PostCategoryInPost.from_orm(PostCategoryModel.get_by_id(post_model.category_id))
+        result.append(post)
     return result
 
 
@@ -63,17 +64,17 @@ def list_post_category():
     result = []
     for category_model in category_models:
         category_model: PostCategoryModel
-        category: PostCategoryOut = PostCategoryOut.from_orm(category_model)
+        category: PostCategoryInResponse = PostCategoryInResponse.from_orm(category_model)
         category.posts = []
         for post_id in category_model.posts_set:
             post_model = PostModel.get_by_id(post_id)
-            post = CategoryPostOut.from_orm(post_model)
+            post = PostInPostCategory.from_orm(post_model)
             category.posts.append(post)
-        result.append(PostCategoryOut.from_orm(category))
+        result.append(PostCategoryInResponse.from_orm(category))
     return result
 
 
-def update_post_category(id: int, category: PostCategory):
+def update_post_category(id: int, category: BasePostCategory):
     PostCategoryModel.update(category.dict(exclude_none=True)).where(PostCategoryModel.id == id).execute()
 
 

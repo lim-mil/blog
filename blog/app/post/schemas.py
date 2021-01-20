@@ -5,7 +5,15 @@ from pydantic import Field
 from blog.schemas import BaseSchema, IdMixin, DatetimeMixin, BaseResponse
 
 
-class PostCreate(BaseSchema):
+class BasePost(BaseSchema):
+    pass
+
+
+class BasePostCategory(BaseSchema):
+    name: str = Field(..., max_length=64)
+
+
+class PostInCreate(BaseSchema):
     title: str = Field(..., max_length=64)
     description: Optional[str] = Field(..., max_length=128)
     content: str
@@ -13,73 +21,53 @@ class PostCreate(BaseSchema):
     category_id: int = Field(..., gt=0)
 
 
-class PostUpdate(BaseSchema):
-    title: str = Field(..., max_length=64)
-    desccription: Optional[str] = Field(..., max_length=128)
+class PostInUpdate(BaseSchema):
+    title: Optional[str]
+    desccription: Optional[str]
     content: Optional[str]
     status: Optional[int]
 
 
-class PostRetrive(BaseSchema, IdMixin, DatetimeMixin):
+class PostCategoryInPost(BasePostCategory, IdMixin):
+    pass
+
+
+class PostInResponse(BaseSchema, IdMixin, DatetimeMixin):
     title: str = Field(..., max_length=64)
     description: Optional[str] = Field(..., max_length=128)
     content: str
     status: int = Field(0)
-    category:
+    category: Optional[PostCategoryInPost]
 
 
-class PostCategoryCreate(BaseSchema):
-    name: str = Field(..., max_length=64)
-
-
-class
-
-
-
-
-class PostCategory(BaseSchema):
-    """
-    文章分类
-    """
-    name: str = Field(..., max_length=64)
-
-
-class PostIn(Post):
-    """
-    文章输入类
-    """
-    category_id: int = Field(..., gt=0)
-
-
-class PostCategoryIn(PostCategory):
-    pass
-
-
-class CategoryPostOut(BaseSchema, IdMixin, DatetimeMixin):
+class PostInListResponse(BaseSchema, IdMixin, DatetimeMixin):
     title: str = Field(..., max_length=64)
+    description: Optional[str] = Field(..., max_length=128)
+    status: int = Field(0)
+    category: Optional[PostCategoryInPost]
 
 
-class PostCategoryOut(PostCategory, IdMixin, DatetimeMixin):
-    posts: Optional[List[CategoryPostOut]]
-
-
-class PostOut(Post, IdMixin, DatetimeMixin):
-    category: Optional[PostCategoryOut]
-
-
-class PostOutListItem(BaseSchema, IdMixin, DatetimeMixin):
+class PostInPostCategory(BaseSchema):
     title: str = Field(..., max_length=64)
-    description: str = Field(..., max_length=128)
-    category: Optional[PostCategoryOut]
+    description: Optional[str] = Field(..., max_length=128)
 
 
-class PostsOut(BaseSchema):
-    posts: List[PostOutListItem] = Field([])
+class PostCategoryInResponse(BaseSchema, IdMixin, DatetimeMixin):
+    name: str = Field(..., max_length=64)
+    posts: List[PostInPostCategory] = []
 
 
-class PostResponse(BaseResponse):
-    data: PostOut
+class PostCategoriesForResponse(BaseResponse):
+    data: List[PostCategoryInResponse] = []
 
 
-class PostsResponse(BaseResponse):
-    data: PostsOut
+class PostCategoryForResponse(BaseResponse):
+    data: Optional[PostCategoryInResponse]
+
+
+class PostForResponse(BaseResponse):
+    data: Optional[PostInResponse]
+
+
+class PostsForResponse(BaseResponse):
+    data: List[PostInListResponse] = []
