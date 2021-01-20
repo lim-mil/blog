@@ -1,5 +1,5 @@
 from datetime import datetime
-from typing import Optional
+from typing import Optional, Any
 
 from pydantic import BaseModel, Field, validator
 
@@ -24,3 +24,9 @@ class DatetimeMixin(BaseModel):
         if not isinstance(v, datetime):
             raise ValueError('must be datetime instance')
         return v.timestamp()
+
+
+class BaseResponse(BaseModel):
+    code: int = Field(default=202)
+    message: str = Field(default='')
+    data: Any

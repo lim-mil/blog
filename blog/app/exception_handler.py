@@ -28,7 +28,6 @@ def register_exception_handlers(app: FastAPI):
             status_code=exc.status_code,
             content={
                 'code': exc.status_code,
-                'message': exc.detail,
-                'data': None
+                'message': exc.detail
             },
         )

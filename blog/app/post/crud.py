@@ -1,8 +1,8 @@
 from typing import Optional
 
 from blog.app.post.models import PostModel, PostCategoryModel
-from blog.app.post.schemas import PostIn, PostCategory, PostCategoryIn, PostOut, PostCategoryOut, PostOutList, PostUpdate, \
-    PostOutListItem, CategoryPostOut
+from blog.app.post.schemas import PostIn, PostCategory, PostCategoryIn, PostOut, PostCategoryOut, PostUpdate, \
+    PostOutListItem, CategoryPostOut, PostsOut
 
 
 def create_post(post: PostIn):
@@ -46,11 +46,11 @@ def list_post(page: Optional[int], step: Optional[int]):
         post_list_model = PostModel.select().limit(page).offset((page-1) * step)
     else:
         post_list_model = PostModel.select()
-    result = PostOutList()
+    result = PostsOut()
     for post_model in post_list_model:
         post = PostOutListItem.from_orm(post_model)
         post.category = PostCategoryOut.from_orm(PostCategoryModel.get_by_id(post_model.category_id))
-        result.post_list.append(post)
+        result.posts.append(post)
     return result
 
 

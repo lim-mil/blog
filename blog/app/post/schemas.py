@@ -2,27 +2,39 @@ from typing import Optional, List
 
 from pydantic import Field
 
-from blog.schemas import BaseSchema, IdMixin, DatetimeMixin
+from blog.schemas import BaseSchema, IdMixin, DatetimeMixin, BaseResponse
 
 
-class Post(BaseSchema):
-    """
-    文章
-    """
+class PostCreate(BaseSchema):
     title: str = Field(..., max_length=64)
     description: Optional[str] = Field(..., max_length=128)
     content: str
     status: int = Field(0)
+    category_id: int = Field(..., gt=0)
 
 
 class PostUpdate(BaseSchema):
-    """
-    更新文章
-    """
-    title: Optional[str] = Field(..., max_length=64)
-    description: Optional[str] = Field(..., max_length=128)
+    title: str = Field(..., max_length=64)
+    desccription: Optional[str] = Field(..., max_length=128)
     content: Optional[str]
     status: Optional[int]
+
+
+class PostRetrive(BaseSchema, IdMixin, DatetimeMixin):
+    title: str = Field(..., max_length=64)
+    description: Optional[str] = Field(..., max_length=128)
+    content: str
+    status: int = Field(0)
+    category:
+
+
+class PostCategoryCreate(BaseSchema):
+    name: str = Field(..., max_length=64)
+
+
+class
+
+
 
 
 class PostCategory(BaseSchema):
@@ -61,6 +73,13 @@ class PostOutListItem(BaseSchema, IdMixin, DatetimeMixin):
     category: Optional[PostCategoryOut]
 
 
-class PostOutList(BaseSchema):
-    post_list: List[PostOutListItem] = Field([])
+class PostsOut(BaseSchema):
+    posts: List[PostOutListItem] = Field([])
 
+
+class PostResponse(BaseResponse):
+    data: PostOut
+
+
+class PostsResponse(BaseResponse):
+    data: PostsOut
