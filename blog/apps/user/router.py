@@ -1,9 +1,9 @@
 from fastapi import APIRouter, Depends, HTTPException
 from fastapi.security import OAuth2PasswordRequestForm
 
-from blog.apps.user.schemas import UserIn, User
+from blog.apps.user.schemas import UserInRegister, BaseUser
 from blog.apps.user import crud
-from blog.pkg.exception import UNAUTHORIZED_401_Exception, FORBIDDEN_403_Exception
+from blog.pkg.exception import UNAUTHORIZED_401_Exception, FORBIDDEN_403_Exception, BAD_REQUEST_400_Exception
 from blog.pkg.response import resp_200
 from blog.pkg.security import create_jwt_token
 
@@ -32,9 +32,9 @@ async def login_for_access_token(form_data: OAuth2PasswordRequestForm = Depends(
     summary='注册'
 )
 async def register(
-    user: UserIn
+    user: UserInRegister
 ):
     if user.password.strip() != user.repassword.strip():
-        return
-    crud.create_user(User(username=user.username, password=user.password))
-    return {'status': 'ok'}
+        raise BAD_REQUEST_400_Exception(msg="password is different from repassword.")
+    crud.create_user(BaseUser(username=user.username, password=user.password))
+    return resp_200()

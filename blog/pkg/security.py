@@ -7,7 +7,7 @@ from fastapi import Header, Depends, HTTPException
 from fastapi.security import OAuth2PasswordBearer
 
 from blog.apps.user.models import UserModel
-from blog.apps.user.schemas import User
+from blog.apps.user.schemas import BaseUser
 from blog.pkg.exception import BAD_REQUEST_400_Exception, FORBIDDEN_403_Exception, UNAUTHORIZED_401_Exception
 
 oauth2_schema = OAuth2PasswordBearer(tokenUrl='/api/v1/user/token')
@@ -16,7 +16,7 @@ oauth2_schema = OAuth2PasswordBearer(tokenUrl='/api/v1/user/token')
 SALT = 'blogsecret'
 
 
-def create_jwt_token(user: User):
+def create_jwt_token(user: BaseUser):
     headers = {
         'typ': 'jwt',
         'alg': 'HS256'
