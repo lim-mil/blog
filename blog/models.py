@@ -1,14 +1,15 @@
 from datetime import datetime
 
-from peewee import Model, AutoField, DateTimeField, TimestampField
+from peewee import Model, AutoField, BigIntegerField
 
 from blog.db.databases import sqlite_db
+from blog.utils.get_current_ts import get_current_ts
 
 
 class BaseModel(Model):
     id = AutoField(index=True, primary_key=True)
-    created = TimestampField(default=datetime.now)
-    updated = TimestampField(default=datetime.now)
+    created = BigIntegerField(default=get_current_ts)
+    updated = BigIntegerField(default=get_current_ts)
 
     class Meta:
         database = sqlite_db

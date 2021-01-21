@@ -20,12 +20,20 @@ class ProjectInCreate(BaseProject):
     category_id: int = Field(..., gt=0)
 
 
+class ProjectInUpdate(BaseSchema):
+    name: Optional[str]
+    description: Optional[str]
+    link: Optional[str]
+    status: Optional[int]
+    category_id: Optional[int]
+
+
 class ProjectCategoryInProject(BaseProjectCategory, IdMixin):
     pass
 
 
 class ProjectInResponse(BaseProject, IdMixin, DatetimeMixin):
-    category: ProjectCategoryInProject
+    category: Optional[ProjectCategoryInProject]
 
 
 class ProjectUpdate(BaseSchema):

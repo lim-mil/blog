@@ -6,6 +6,7 @@ from fastapi.security import OAuth2PasswordBearer
 from blog.apps.post import crud
 from blog.apps.post.schemas import PostsForResponse, PostInResponse, BasePostCategory, PostInUpdate, \
     PostInCreate, PostCategoryForResponse, PostCategoriesForResponse, PostForResponse
+from blog.apps.user.models import UserModel
 from blog.pkg.security import oauth2_schema, get_current_user
 
 router = APIRouter()
@@ -35,7 +36,7 @@ async def create_post(
 async def list_post(
     page: Optional[int] = Query(None, ge=1, description='页数，不传则默认获取全部'),
     step: Optional[int] = Query(None, ge=1, description='偏移，不传则默认获取全部'),
-    user: Any = Depends(get_current_user),
+    user: UserModel = Depends(get_current_user),
 ):
     posts = crud.list_post(page, step)
     return PostsForResponse(data=posts)

@@ -22,7 +22,7 @@ class ResponseContent:
         }
 
 
-def resp_200(*, data: Any, msg: str = 'OK') -> Response:
+def resp_200(*, data: Any = None, msg: str = 'OK') -> Response:
     return JSONResponse(
         status_code=HTTPStatus.OK,
         content=ResponseContent(code=HTTPStatus.OK, message=msg, data=data).to_dict()
