@@ -30,7 +30,7 @@ async def create_post(
     response_model=PostsForResponse,
     response_model_by_alias='data',
     description='',
-    summary='所有文章（分页）',
+    summary='所有文章（分页）'
 )
 async def list_post(
     page: Optional[int] = Query(None, ge=1, description='页数，不传则默认获取全部'),
@@ -105,8 +105,6 @@ async def update_post(
     post: PostInUpdate,
     post_id: int = Path(..., gt=0, description='文章 id')
 ):
-    print(post.dict())
-    print('hello')
     crud.update_post_by_id(post_id, post)
     return {
         'status': 'ok'

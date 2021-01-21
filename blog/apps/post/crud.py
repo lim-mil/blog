@@ -11,7 +11,6 @@ def create_post(post: PostInCreate):
 
 def retrive_post_by_id(id: int):
     post_model: Optional[PostModel] = PostModel.get_by_id(id)
-    print(post_model.title)
     post = PostInResponse.from_orm(post_model)
     post.category = PostCategoryInPost.from_orm(PostCategoryModel.get_by_id(post_model.category_id))
     return post

@@ -1,6 +1,8 @@
+from peewee import ModelSelect
+
 from blog.apps.project.model import ProjectModel, ProjectCategoryModel
-from blog.apps.project.schemas import ProjectOut, ProjectCategoryOut, ProjectUpdate, ProjectCategoryIn, \
-    CategoryProjectOut
+from blog.apps.project.schemas import ProjectUpdate, ProjectInResponse, ProjectCategoryInProject, BaseProjectCategory, \
+    ProjectCategoryInResponse, ProjectInProjectCategory
 
 
 def create_project(project):
@@ -9,8 +11,8 @@ def create_project(project):
 
 def retrive_project_by_id(id: int):
     project_model: ProjectModel = ProjectModel.get_by_id(id)
-    project = ProjectOut.from_orm(project_model)
-    project.category = ProjectCategoryOut.from_orm(ProjectCategoryModel.get_by_id(project_model.category_id))
+    project = ProjectInResponse.from_orm(project_model)
+    project.category = ProjectCategoryInProject.from_orm(ProjectCategoryModel.get_by_id(project_model.category_id))
     return project
 
 
@@ -22,17 +24,17 @@ def delete_project_by_id(id: int):
     ProjectModel.delete().where(ProjectModel.id == id).execute()
 
 
-def create_project_category(category: ProjectCategoryIn):
+def create_project_category(category: BaseProjectCategory):
     ProjectCategoryModel.create(**category.dict())
 
 
 def retrive_project_category_by_id(id: int):
     category_model: ProjectCategoryModel = ProjectCategoryModel.get_by_id(id)
-    category = ProjectCategoryOut.from_orm(category_model)
+    category = ProjectCategoryInResponse.from_orm(category_model)
     return category
 
 
-def update_project_category_by_id(id: int, category: ProjectCategoryIn):
+def update_project_category_by_id(id: int, category: BaseProjectCategory):
     ProjectCategoryModel.update(**category.dict()).where(ProjectCategoryModel.id == id).execute()
 
 
@@ -41,14 +43,15 @@ def delete_project_category_by_id(id: int):
 
 
 def list_project_category():
-    categories_model: ProjectCategoryModel = ProjectCategoryModel.select()
+    categories_model: ModelSelect = ProjectCategoryModel.select()
     result = []
     for category_model in categories_model:
-        category: ProjectCategoryOut = ProjectCategoryOut.from_orm(category_model)
+        category_model: ProjectCategoryModel
+        category: ProjectCategoryInResponse = ProjectCategoryInResponse.from_orm(category_model)
         category.projects = []
         for project_id in category_model.projects_set:
             project_model = ProjectModel.get_by_id(project_id)
-            project = CategoryProjectOut.from_orm(project_model)
+            project = ProjectInProjectCategory.from_orm(project_model)
             category.projects.append(project)
         result.append(category)
     return result

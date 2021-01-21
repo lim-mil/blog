@@ -27,6 +27,6 @@ class DatetimeMixin(BaseModel):
 
 
 class BaseResponse(BaseModel):
-    code: int = Field(default=202)
+    code: int = Field(default=200)
     message: str = Field(default='')
     data: Any
