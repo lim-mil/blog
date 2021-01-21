@@ -43,7 +43,7 @@ def delete_post_category_by_id(id: int):
 
 def list_post(page: Optional[int], step: Optional[int]):
     if page and step:
-        post_list_model = PostModel.select().limit(page).offset((page-1) * step)
+        post_list_model = PostModel.select().limit(step).offset((page-1) * step)
     else:
         post_list_model = PostModel.select()
     result: List[PostInResponse] = []

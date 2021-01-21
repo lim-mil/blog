@@ -42,7 +42,7 @@ def get_current_user(
         else:
             raise UNAUTHORIZED_401_Exception()
     except jwt.ExpiredSignatureError:
-        raise FORBIDDEN_403_Exception('jwt token 超时')
+        raise UNAUTHORIZED_401_Exception('jwt token 超时')
     except Exception as e:
         traceback.print_exc()
 
