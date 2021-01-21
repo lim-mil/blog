@@ -1,10 +1,10 @@
 from fastapi import APIRouter
 
 from blog.db.connetctions import sqlite_connect
-from blog.app.post.router import router as post_router
-from blog.app.project.router import router as project_router
-from blog.app.info.router import router as info_router
-from blog.app.user.router import router as user_router
+from blog.apps.post.router import router as post_router
+from blog.apps.project.router import router as project_router
+from blog.apps.info.router import router as info_router
+from blog.apps.user.router import router as user_router
 
 
 api_v1 = APIRouter()

@@ -2,8 +2,8 @@ from typing import List
 
 from fastapi import APIRouter
 
-from blog.app.info import crud
-from blog.app.info.schemas import InfoIn, InfoOut, AboutOut, BlogrolIn, BlogrolOut
+from blog.apps.info import crud
+from blog.apps.info.schemas import InfoIn, InfoOut, AboutOut, BlogrolIn, BlogrolOut
 
 router = APIRouter()
 

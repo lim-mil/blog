@@ -1,5 +1,7 @@
 from playhouse.db_url import SqliteDatabase, PostgresqlDatabase
 
-sqlite_db = SqliteDatabase('C:\\Users\\lim\\Workspaces\\blog\\blog\\db.sqlite3')
+from blog import settings
+
+sqlite_db = SqliteDatabase(settings.SQLITE_PATH)
 
 # postgresql_db = PostgresqlDatabase()

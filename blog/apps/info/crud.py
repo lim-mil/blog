@@ -1,7 +1,7 @@
 from typing import List, Optional
 
-from blog.app.info.models import InfoModel, BlogrolModel
-from blog.app.info.schemas import InfoOut, InfoIn, BlogrolIn, AboutOut, BlogrolOut
+from blog.apps.info.models import InfoModel, BlogrolModel
+from blog.apps.info.schemas import InfoOut, InfoIn, BlogrolIn, AboutOut, BlogrolOut
 
 
 def retrive_info():

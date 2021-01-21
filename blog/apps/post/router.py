@@ -3,8 +3,8 @@ from typing import Optional, List, Any
 from fastapi import APIRouter, Path, Query, Depends, Response, HTTPException
 from fastapi.security import OAuth2PasswordBearer
 
-from blog.app.post import crud
-from blog.app.post.schemas import PostsForResponse, PostInResponse, BasePostCategory, PostInUpdate, \
+from blog.apps.post import crud
+from blog.apps.post.schemas import PostsForResponse, PostInResponse, BasePostCategory, PostInUpdate, \
     PostInCreate, PostCategoryForResponse, PostCategoriesForResponse, PostForResponse
 from blog.pkg.security import oauth2_schema, get_current_user
 

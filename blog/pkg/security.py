@@ -6,8 +6,8 @@ import jwt
 from fastapi import Header, Depends, HTTPException
 from fastapi.security import OAuth2PasswordBearer
 
-from blog.app.user.models import UserModel
-from blog.app.user.schemas import User
+from blog.apps.user.models import UserModel
+from blog.apps.user.schemas import User
 from blog.pkg.exception import BAD_REQUEST_400_Exception, FORBIDDEN_403_Exception, UNAUTHORIZED_401_Exception
 
 oauth2_schema = OAuth2PasswordBearer(tokenUrl='/api/v1/user/token')

@@ -1,7 +1,7 @@
 from typing import Optional, List
 
-from blog.app.post.models import PostModel, PostCategoryModel
-from blog.app.post.schemas import PostInCreate, PostInResponse, PostCategoryInPost, PostInUpdate, \
+from blog.apps.post.models import PostModel, PostCategoryModel
+from blog.apps.post.schemas import PostInCreate, PostInResponse, PostCategoryInPost, PostInUpdate, \
     BasePostCategory, PostInListResponse, PostCategoryInResponse, PostInPostCategory
 
 

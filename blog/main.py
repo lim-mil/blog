@@ -5,8 +5,8 @@ from fastapi.middleware.cors import CORSMiddleware
 from fastapi.staticfiles import StaticFiles
 from fastapi.requests import Request
 
-from blog.app.api import api_v1
-from blog.app.exception_handler import register_exception_handlers
+from blog.apps.api import api_v1
+from blog.apps.exception_handler import register_exception_handlers
 from blog.db.connetctions import sqlite_connect
 from blog.pkg.exception import FORBIDDEN_403_Exception
 from blog.pkg.response import resp_403
