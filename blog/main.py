@@ -7,7 +7,7 @@ from fastapi.requests import Request
 
 from blog.apps.api import api_v1
 from blog.apps.exception_handler import register_exception_handlers
-from blog.db.connetctions import sqlite_connect
+from blog.pkg.db import sqlite_connect
 from blog.pkg.exception import FORBIDDEN_403_Exception
 from blog.pkg.response import resp_403
 

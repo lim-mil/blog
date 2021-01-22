@@ -18,7 +18,8 @@ router = APIRouter()
     summary='获取所有项目分类',
     response_model=ProjectCategoriesForResponse
 )
-async def list_project_category():
+async def list_project_category(
+):
     results = crud.list_project_category()
     return ProjectCategoriesForResponse(data=results)
 
@@ -29,7 +30,8 @@ async def list_project_category():
     summary='创建项目'
 )
 async def create_project(
-    project: ProjectInCreate
+    project: ProjectInCreate,
+    user: UserModel = Depends(get_current_user)
 ):
     crud.create_project(project)
     return {
@@ -43,7 +45,8 @@ async def create_project(
     summary='创建分类'
 )
 async def create_category(
-    project_category: BaseProjectCategory
+    project_category: BaseProjectCategory,
+    user: UserModel = Depends(get_current_user)
 ):
     crud.create_project_category(project_category)
     return {
@@ -86,7 +89,6 @@ async def update_project(
 )
 async def retrive_project(
     project_id: int = Path(..., gt=0),
-    user: UserModel = Depends(get_current_user)
 ):
     project = crud.retrive_project_by_id(project_id)
     return ProjectForResponse(data=project)

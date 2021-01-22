@@ -1,10 +1,10 @@
-from typing import List
-
-from fastapi import APIRouter
+from fastapi import APIRouter, Depends
 
 from blog.apps.info import crud
 from blog.apps.info.schemas import InfoInCreate, InfoForResponse, AboutForResponse, BaseBlogrol, BlogrolsForResponse
+from blog.apps.user.models import UserModel
 from blog.pkg.response import resp_200
+from blog.pkg.security import get_current_user
 
 router = APIRouter()
 
@@ -15,7 +15,8 @@ router = APIRouter()
     summary='创建个人信息'
 )
 async def create_info(
-    info: InfoInCreate
+    info: InfoInCreate,
+    user: UserModel = Depends(get_current_user)
 ):
     crud.create_info(info)
     return resp_200()
@@ -49,14 +50,15 @@ async def retrive_about():
     summary='创建友链'
 )
 async def create_blogrol(
-    blogrol: BaseBlogrol
+    blogrol: BaseBlogrol,
+    user: UserModel = Depends(get_current_user)
 ):
     crud.create_blogrol(blogrol)
     return resp_200()
 
 
 @router.get(
-    '/blogrol',
+    '/blogrols',
     description='',
     summary='获取友链',
     response_model=BlogrolsForResponse,

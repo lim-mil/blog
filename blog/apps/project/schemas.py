@@ -53,7 +53,7 @@ class ProjectInProjectCategory(BaseProject, IdMixin):
 
 
 class ProjectCategoryInResponse(BaseProjectCategory, IdMixin, DatetimeMixin):
-    projects: List[ProjectInProjectCategory]
+    projects: List[ProjectInProjectCategory] = []
 
 
 class ProjectCategoryForResponse(BaseResponse):

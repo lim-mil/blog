@@ -1,6 +1,5 @@
 from fastapi import APIRouter
 
-from blog.db.connetctions import sqlite_connect
 from blog.apps.post.router import router as post_router
 from blog.apps.project.router import router as project_router
 from blog.apps.info.router import router as info_router

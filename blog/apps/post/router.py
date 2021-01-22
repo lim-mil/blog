@@ -18,7 +18,8 @@ router = APIRouter()
     summary='创建文章'
 )
 async def create_post(
-    post: PostInCreate
+    post: PostInCreate,
+    user: UserModel = Depends(get_current_user)
 ):
     crud.create_post(post)
     return {
@@ -36,10 +37,22 @@ async def create_post(
 async def list_post(
     page: Optional[int] = Query(None, ge=1, description='页数，不传则默认获取全部'),
     step: Optional[int] = Query(None, ge=1, description='偏移，不传则默认获取全部'),
-    user: UserModel = Depends(get_current_user),
 ):
     posts = crud.list_post(page, step)
     return PostsForResponse(data=posts)
+
+
+@router.get(
+    '/categories',
+    description='',
+    summary='所有分类',
+    response_model=PostCategoriesForResponse,
+)
+async def list_post_category():
+    print("ok")
+    post_categories = crud.list_post_category()
+    print(post_categories)
+    return PostCategoriesForResponse(data=post_categories)
 
 
 @router.get(
@@ -49,7 +62,7 @@ async def list_post(
     summary='通过 id 获取文章'
 )
 async def retrive_post(
-    post_id: int = Path(..., gt=0, description='文章 id')
+    post_id: int = Path(..., gt=0, description='文章 id'),
 ):
     post = crud.retrive_post_by_id(post_id)
     return PostForResponse(data=post.dict())
@@ -62,6 +75,7 @@ async def retrive_post(
 )
 async def create_post_category(
     post_category: BasePostCategory,
+    user: UserModel = Depends(get_current_user)
 ):
     crud.create_post_category(post_category)
     return {
@@ -75,7 +89,8 @@ async def create_post_category(
     summary='删除文章（id）'
 )
 async def delete_post(
-    post_id: int = Path(..., gt=0, description='文章 id')
+    post_id: int = Path(..., gt=0, description='文章 id'),
+    user: UserModel = Depends(get_current_user)
 ):
     crud.delete_post_by_id(post_id)
     return {
@@ -89,7 +104,8 @@ async def delete_post(
     summary='删除文章分类（id）'
 )
 async def delete_post_category(
-    post_category_id: int = Path(..., gt=0, description='分类 id')
+    post_category_id: int = Path(..., gt=0, description='分类 id'),
+    user: UserModel = Depends(get_current_user)
 ):
     crud.delete_post_category_by_id(post_category_id)
     return {
@@ -104,7 +120,8 @@ async def delete_post_category(
 )
 async def update_post(
     post: PostInUpdate,
-    post_id: int = Path(..., gt=0, description='文章 id')
+    post_id: int = Path(..., gt=0, description='文章 id'),
+    user: UserModel = Depends(get_current_user)
 ):
     crud.update_post_by_id(post_id, post)
     return {
@@ -119,20 +136,10 @@ async def update_post(
 )
 async def update_post_category(
     post_category: BasePostCategory,
-    post_category_id: int = Path(..., gt=0)
+    post_category_id: int = Path(..., gt=0),
+    user: UserModel = Depends(get_current_user)
 ):
     crud.update_post_category_by_id(post_category_id, post_category)
-
-
-@router.get(
-    '/categories/',
-    description='',
-    summary='所有分类',
-    response_model=PostCategoriesForResponse,
-)
-async def list_post_category():
-    post_categories = crud.list_post_category()
-    return PostCategoriesForResponse(data=post_categories)
 
 
 @router.get(
@@ -142,7 +149,7 @@ async def list_post_category():
     response_model=PostCategoryForResponse
 )
 async def retrive_post_category(
-    post_category_id: int = Path(..., gt=0)
+    post_category_id: int = Path(..., gt=0),
 ):
     post_category = crud.retrive_post_category_by_id(post_category_id)
     return PostCategoryForResponse(data=post_category)

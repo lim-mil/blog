@@ -2,7 +2,7 @@ from datetime import datetime
 
 from peewee import Model, AutoField, BigIntegerField
 
-from blog.db.databases import sqlite_db
+from blog.pkg.db import sqlite_db
 from blog.utils.get_current_ts import get_current_ts
 
 
