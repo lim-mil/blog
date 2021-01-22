@@ -8,6 +8,7 @@ from blog.apps.user.router import router as user_router
 
 api_v1 = APIRouter()
 
+
 api_v1.include_router(
     router=post_router,
     prefix='/posts',
