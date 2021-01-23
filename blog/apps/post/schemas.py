@@ -70,6 +70,14 @@ class PostCategoryInResponse(BasePostCategory, IdMixin, DatetimeMixin):
     posts: List[PostInPostCategory] = []
 
 
+class PostCategorySimpleInResponse(BasePostCategory, IdMixin):
+    pass
+
+
+class PostCategoriesSimpleForResponse(BaseResponse):
+    data: List[PostCategorySimpleInResponse] = []
+
+
 class PostCategoriesForResponse(BaseResponse):
     data: List[PostCategoryInResponse] = []
 

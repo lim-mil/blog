@@ -2,7 +2,7 @@ from typing import Optional, List
 
 from blog.apps.post.models import PostModel, PostCategoryModel
 from blog.apps.post.schemas import PostInCreate, PostInResponse, PostCategoryInPost, PostInUpdate, \
-    BasePostCategory, PostInListResponse, PostCategoryInResponse, PostInPostCategory
+    BasePostCategory, PostInListResponse, PostCategoryInResponse, PostInPostCategory, PostCategorySimpleInResponse
 
 
 def create_post(post: PostInCreate):
@@ -75,6 +75,14 @@ def list_post_category():
 
 def update_post_category(id: int, category: BasePostCategory):
     PostCategoryModel.update(category.dict(exclude_none=True)).where(PostCategoryModel.id == id).execute()
+
+
+def list_post_category_simple():
+    result = []
+    categories = PostCategoryModel.select()
+    for category in categories:
+        result.append(PostCategorySimpleInResponse.from_orm(category))
+    return result
 
 
 if __name__ == '__main__':

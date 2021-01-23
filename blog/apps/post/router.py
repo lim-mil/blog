@@ -5,7 +5,7 @@ from fastapi.security import OAuth2PasswordBearer
 
 from blog.apps.post import crud
 from blog.apps.post.schemas import PostsForResponse, PostInResponse, BasePostCategory, PostInUpdate, \
-    PostInCreate, PostCategoryForResponse, PostCategoriesForResponse, PostForResponse
+    PostInCreate, PostCategoryForResponse, PostCategoriesForResponse, PostForResponse, PostCategoriesSimpleForResponse
 from blog.apps.user.models import UserModel
 from blog.pkg.security import oauth2_schema, get_current_user
 
@@ -143,7 +143,18 @@ async def update_post_category(
 
 
 @router.get(
-    '/category/{post_category_id}',
+    '/categories/simple',
+    description='',
+    summary='获取所有分类（简单）',
+    response_model=PostCategoriesSimpleForResponse
+)
+async def list_post_category_simple():
+    data = crud.list_post_category_simple()
+    return PostCategoriesSimpleForResponse(data=data)
+
+
+@router.get(
+    '/categories/{post_category_id}',
     description='',
     summary='获取分类（通过id）',
     response_model=PostCategoryForResponse
