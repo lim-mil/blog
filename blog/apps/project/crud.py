@@ -1,3 +1,5 @@
+from typing import List
+
 from peewee import ModelSelect
 
 from blog.apps.project.model import ProjectModel, ProjectCategoryModel
@@ -9,7 +11,7 @@ def create_project(project):
     ProjectModel.create(**project.dict())
 
 
-def retrive_project_by_id(id: int):
+def retrive_project_by_id(id: int) -> ProjectInResponse:
     project_model: ProjectModel = ProjectModel.get_by_id(id)
     project = ProjectInResponse.from_orm(project_model)
     project.category = ProjectCategoryInProject.from_orm(ProjectCategoryModel.get_by_id(project_model.category_id))
@@ -54,4 +56,20 @@ def list_project_category():
             project = ProjectInProjectCategory.from_orm(project_model)
             category.projects.append(project)
         result.append(category)
+    return result
+
+
+def retrive_projects() -> List[ProjectInResponse]:
+    projects = ProjectModel.select(ProjectModel.id)
+    result = []
+    for project in projects:
+        result.append(retrive_project_by_id(project.id))
+    return result
+
+
+def retrive_project_categories_simple() -> List[ProjectCategoryInProject]:
+    project_categories = ProjectCategoryModel.select()
+    result = []
+    for category in project_categories:
+        result.append(ProjectCategoryInProject.from_orm(category))
     return result

@@ -4,7 +4,7 @@ from fastapi import APIRouter, Path, Depends
 
 from blog.apps.project import crud
 from blog.apps.project.schemas import ProjectCategoriesForResponse, ProjectInCreate, BaseProjectCategory, \
-    ProjectInUpdate, ProjectForResponse
+    ProjectInUpdate, ProjectForResponse, ProjectsForResponse, ProjectCategoriesSimpleForResponse
 from blog.apps.user.models import UserModel
 from blog.pkg.response import resp_200
 from blog.pkg.security import get_current_user
@@ -13,15 +13,25 @@ router = APIRouter()
 
 
 @router.get(
+    '/',
+    description='',
+    summary='获取所有项目',
+    response_model=ProjectsForResponse
+)
+async def retrive_projects():
+    data = crud.retrive_projects()
+    return ProjectsForResponse(data=data)
+
+
+@router.get(
     '/categories',
     description='',
     summary='获取所有项目分类',
     response_model=ProjectCategoriesForResponse
 )
-async def list_project_category(
-):
-    results = crud.list_project_category()
-    return ProjectCategoriesForResponse(data=results)
+async def list_project_category():
+    data = crud.list_project_category()
+    return ProjectCategoriesForResponse(data=data)
 
 
 @router.post(
@@ -34,9 +44,7 @@ async def create_project(
     user: UserModel = Depends(get_current_user)
 ):
     crud.create_project(project)
-    return {
-        'status': 'ok'
-    }
+    return resp_200()
 
 
 @router.post(
@@ -49,9 +57,18 @@ async def create_category(
     user: UserModel = Depends(get_current_user)
 ):
     crud.create_project_category(project_category)
-    return {
-        'status': 'ok'
-    }
+    return resp_200()
+
+
+@router.get(
+    '/categories/simple',
+    description='',
+    summary='获取简单的项目分类信息',
+    response_model=ProjectCategoriesSimpleForResponse
+)
+async def retrive_project_categories_simple():
+    data = crud.retrive_project_categories_simple()
+    return ProjectCategoriesSimpleForResponse(data=data)
 
 
 @router.delete(
@@ -95,7 +112,7 @@ async def retrive_project(
 
 
 @router.delete(
-    '/{project_category_id}',
+    '/categories/{project_category_id}',
     description='',
     summary='删除项目分类'
 )
@@ -105,4 +122,3 @@ async def delete_project_category(
 ):
     crud.delete_project_category_by_id(project_category_id)
     return resp_200()
-

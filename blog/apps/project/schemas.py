@@ -62,3 +62,11 @@ class ProjectCategoryForResponse(BaseResponse):
 
 class ProjectCategoriesForResponse(BaseResponse):
     data: List[ProjectCategoryInResponse]
+
+
+class ProjectsForResponse(BaseResponse):
+    data: List[ProjectInResponse]
+
+
+class ProjectCategoriesSimpleForResponse(BaseResponse):
+    data: List[ProjectCategoryInProject]
