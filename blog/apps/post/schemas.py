@@ -34,7 +34,7 @@ class PostInUpdate(BaseSchema):
     更新文章
     """
     title: Optional[str]
-    desccription: Optional[str]
+    description: Optional[str]
     content: Optional[str]
     status: Optional[int]
     category_id: Optional[int]

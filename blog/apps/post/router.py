@@ -116,17 +116,17 @@ async def delete_post_category(
 @router.patch(
     '/{post_id}',
     description='',
-    summary='更改文章'
+    summary='更改文章',
+    response_model=PostForResponse
 )
 async def update_post(
     post: PostInUpdate,
     post_id: int = Path(..., gt=0, description='文章 id'),
     user: UserModel = Depends(get_current_user)
 ):
-    crud.update_post_by_id(post_id, post)
-    return {
-        'status': 'ok'
-    }
+    print(post)
+    data: PostInResponse = crud.update_post_by_id(post_id, post)
+    return PostForResponse(data=data)
 
 
 @router.patch(

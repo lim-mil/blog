@@ -3,8 +3,8 @@ from typing import List
 from peewee import ModelSelect
 
 from blog.apps.project.model import ProjectModel, ProjectCategoryModel
-from blog.apps.project.schemas import ProjectUpdate, ProjectInResponse, ProjectCategoryInProject, BaseProjectCategory, \
-    ProjectCategoryInResponse, ProjectInProjectCategory
+from blog.apps.project.schemas import ProjectInResponse, ProjectCategoryInProject, BaseProjectCategory, \
+    ProjectCategoryInResponse, ProjectInProjectCategory, ProjectInUpdate
 
 
 def create_project(project):
@@ -18,8 +18,9 @@ def retrive_project_by_id(id: int) -> ProjectInResponse:
     return project
 
 
-def update_project_by_id(id: int, project: ProjectUpdate):
+def update_project_by_id(id: int, project: ProjectInUpdate) -> ProjectInResponse:
     ProjectModel.update(**project.dict(exclude_unset=True)).where(ProjectModel.id == id).execute()
+    return retrive_project_by_id(id)
 
 
 def delete_project_by_id(id: int):

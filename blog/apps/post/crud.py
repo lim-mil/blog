@@ -9,15 +9,16 @@ def create_post(post: PostInCreate):
     PostModel.create(**post.dict())
 
 
-def retrive_post_by_id(id: int):
+def retrive_post_by_id(id: int) -> PostInResponse:
     post_model: Optional[PostModel] = PostModel.get_by_id(id)
     post = PostInResponse.from_orm(post_model)
     post.category = PostCategoryInPost.from_orm(PostCategoryModel.get_by_id(post_model.category_id))
     return post
 
 
-def update_post_by_id(id: int, post: PostInUpdate):
+def update_post_by_id(id: int, post: PostInUpdate) -> PostInResponse:
     PostModel.update(**post.dict(exclude_unset=True)).where(PostModel.id == id).execute()
+    return retrive_post_by_id(id)
 
 
 def delete_post_by_id(id: int):

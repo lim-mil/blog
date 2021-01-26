@@ -87,15 +87,16 @@ async def delete_project(
 @router.patch(
     '/{project_id}',
     description='',
-    summary='更新项目'
+    summary='更新项目',
+    response_model=ProjectForResponse
 )
 async def update_project(
     project: ProjectInUpdate,
     project_id: int = Path(..., gt=0),
     user: UserModel = Depends(get_current_user)
 ):
-    crud.update_project_by_id(project_id, project)
-    return resp_200()
+    data = crud.update_project_by_id(project_id, project)
+    return ProjectForResponse(data=data)
 
 
 @router.get(
