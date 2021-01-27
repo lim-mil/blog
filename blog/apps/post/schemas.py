@@ -92,3 +92,7 @@ class PostForResponse(BaseResponse):
 
 class PostsForResponse(BaseResponse):
     data: List[PostInListResponse] = []
+
+
+class PostCategoryForResponse(BaseResponse):
+    data: PostCategoryInResponse

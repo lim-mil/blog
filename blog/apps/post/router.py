@@ -124,7 +124,6 @@ async def update_post(
     post_id: int = Path(..., gt=0, description='文章 id'),
     user: UserModel = Depends(get_current_user)
 ):
-    print(post)
     data: PostInResponse = crud.update_post_by_id(post_id, post)
     return PostForResponse(data=data)
 
@@ -132,14 +131,16 @@ async def update_post(
 @router.patch(
     '/categories/{post_category_id}',
     description='',
-    summary='更改分类'
+    summary='更改分类',
+    response_model=PostCategoryForResponse
 )
 async def update_post_category(
     post_category: BasePostCategory,
     post_category_id: int = Path(..., gt=0),
     user: UserModel = Depends(get_current_user)
 ):
-    crud.update_post_category_by_id(post_category_id, post_category)
+    data = crud.update_post_category_by_id(post_category_id, post_category)
+    return PostCategoryForResponse(data=data)
 
 
 @router.get(

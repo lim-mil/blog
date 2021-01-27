@@ -31,11 +31,16 @@ def create_post_category(category: BasePostCategory):
 
 def retrive_post_category_by_id(id: int):
     category = PostCategoryModel.get_by_id(id)
+    posts_model = PostModel.select().where(PostModel.category_id == category.id)
+    category.posts = []
+    for post_model in posts_model:
+        category.posts.append(PostInPostCategory.from_orm(post_model))
     return category
 
 
-def update_post_category_by_id(id:int, category: BasePostCategory):
-    PostCategoryModel.update(**category.dict()).where(PostCategoryModel.id == id).execute()
+def update_post_category_by_id(id:int, category: BasePostCategory) -> PostCategoryInResponse:
+    PostCategoryModel.update(**category.dict(exclude_unset=True)).where(PostCategoryModel.id == id).execute()
+    return retrive_post_category_by_id(id)
 
 
 def delete_post_category_by_id(id: int):
@@ -74,8 +79,10 @@ def list_post_category():
     return result
 
 
-def update_post_category(id: int, category: BasePostCategory):
+def update_post_category(id: int, category: BasePostCategory) -> BasePostCategory:
     PostCategoryModel.update(category.dict(exclude_none=True)).where(PostCategoryModel.id == id).execute()
+    post_cateogry_model = retrive_post_category_by_id(id)
+    return BasePostCategory.from_orm(post_cateogry_model)
 
 
 def list_post_category_simple():
