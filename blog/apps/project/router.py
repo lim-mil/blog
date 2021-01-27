@@ -4,7 +4,8 @@ from fastapi import APIRouter, Path, Depends
 
 from blog.apps.project import crud
 from blog.apps.project.schemas import ProjectCategoriesForResponse, ProjectInCreate, BaseProjectCategory, \
-    ProjectInUpdate, ProjectForResponse, ProjectsForResponse, ProjectCategoriesSimpleForResponse
+    ProjectInUpdate, ProjectForResponse, ProjectsForResponse, ProjectCategoriesSimpleForResponse, \
+    ProjectCategoryForResponse
 from blog.apps.user.models import UserModel
 from blog.pkg.response import resp_200
 from blog.pkg.security import get_current_user
@@ -123,3 +124,18 @@ async def delete_project_category(
 ):
     crud.delete_project_category_by_id(project_category_id)
     return resp_200()
+
+
+@router.patch(
+    '/categories/{project_category_id}',
+    description='',
+    summary='更新项目分类',
+    response_model=ProjectCategoryForResponse
+)
+async def update_project_category(
+    project_category: BaseProjectCategory,
+    project_category_id: int = Path(..., gt=0),
+    user: UserModel = Depends(get_current_user)
+):
+    data = crud.update_project_category_by_id(project_category_id, project_category)
+    return ProjectCategoryForResponse(data=data)

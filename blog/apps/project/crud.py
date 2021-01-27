@@ -33,12 +33,17 @@ def create_project_category(category: BaseProjectCategory):
 
 def retrive_project_category_by_id(id: int):
     category_model: ProjectCategoryModel = ProjectCategoryModel.get_by_id(id)
-    category = ProjectCategoryInResponse.from_orm(category_model)
+    category: ProjectCategoryInResponse = ProjectCategoryInResponse.from_orm(category_model)
+    projects_model = ProjectModel.select().where(ProjectModel.category_id == category.id)
+    category.projects = []
+    for project_model in projects_model:
+        category.projects.append(ProjectInProjectCategory.from_orm(project_model))
     return category
 
 
-def update_project_category_by_id(id: int, category: BaseProjectCategory):
-    ProjectCategoryModel.update(**category.dict()).where(ProjectCategoryModel.id == id).execute()
+def update_project_category_by_id(id: int, category: BaseProjectCategory) -> ProjectCategoryInResponse:
+    ProjectCategoryModel.update(**category.dict(exclude_unset=True)).where(ProjectCategoryModel.id == id).execute()
+    return retrive_project_category_by_id(id)
 
 
 def delete_project_category_by_id(id: int):
