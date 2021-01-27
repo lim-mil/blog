@@ -2,7 +2,7 @@ from typing import Optional, List
 
 from blog.apps.post.models import PostModel, PostCategoryModel
 from blog.apps.post.schemas import PostInCreate, PostInResponse, PostCategoryInPost, PostInUpdate, \
-    BasePostCategory, PostInListResponse, PostCategoryInResponse, PostInPostCategory, PostCategorySimpleInResponse
+    BasePostCategory, PostsInResponse, PostCategoryInResponse, PostInPostCategory, PostCategorySimpleInResponse
 
 
 def create_post(post: PostInCreate):
@@ -54,7 +54,7 @@ def list_post(page: Optional[int], step: Optional[int]):
         post_list_model = PostModel.select()
     result: List[PostInResponse] = []
     for post_model in post_list_model:
-        post = PostInListResponse.from_orm(post_model)
+        post = PostsInResponse.from_orm(post_model)
         post.category = PostCategoryInPost.from_orm(PostCategoryModel.get_by_id(post_model.category_id))
         result.append(post)
     return result
