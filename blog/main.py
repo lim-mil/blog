@@ -26,8 +26,11 @@ app.add_middleware(
     allow_headers=["*"],
 )
 
+# 动态资源
+app.mount('/media', StaticFiles(directory='media'), name='media')
 # 静态资源
 app.mount('/static', StaticFiles(directory='static'), name='static')
+
 
 # @app.exception_handler(FORBIDDEN_403_Exception)
 # async def forbidden_exception_handler(request: Request, exc: RequestValidationError):

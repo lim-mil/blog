@@ -1,10 +1,13 @@
-from fastapi import APIRouter, Depends
+import os
+
+from fastapi import APIRouter, Depends, UploadFile, File
 
 from blog.apps.info import crud
 from blog.apps.info.schemas import InfoInCreate, InfoForResponse, AboutForResponse, BaseBlogrol, BlogrolsForResponse
 from blog.apps.user.models import UserModel
 from blog.pkg.response import resp_200
 from blog.pkg.security import get_current_user
+from blog.settings import BASE_DIR, MEDIA_DIR
 
 router = APIRouter()
 
@@ -66,3 +69,17 @@ async def create_blogrol(
 async def list_blogrol():
     data = crud.list_blogrol()
     return BlogrolsForResponse(data=data)
+
+
+@router.post(
+    '/image',
+    description='',
+    summary='上传图片'
+)
+async def upload_image(
+    image: UploadFile = File(...),
+    user: UserModel = Depends(get_current_user)
+):
+    with open(os.path.join(MEDIA_DIR, 'img', 'limyel.jpg'), 'wb') as f:
+        f.write(await image.read())
+    return resp_200()

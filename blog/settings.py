@@ -1,6 +1,10 @@
 import os
 
 
+BASE_DIR = os.path.dirname(__file__)
+MEDIA_DIR = os.path.join(BASE_DIR, 'media')
+STATIC_DIR = os.path.join(BASE_DIR, 'static')
+
 SECRET_KEY = 'secret_key'
 ALGORITHM = 'HS256'
 ACCESS_TOKEN_EXPIRE_MINUTES = 30
