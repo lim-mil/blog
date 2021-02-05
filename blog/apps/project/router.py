@@ -14,7 +14,7 @@ router = APIRouter()
 
 
 @router.get(
-    '/',
+    '',
     description='',
     summary='获取所有项目',
     response_model=ProjectsForResponse
@@ -36,7 +36,7 @@ async def list_project_category():
 
 
 @router.post(
-    '/',
+    '',
     description='',
     summary='创建项目'
 )

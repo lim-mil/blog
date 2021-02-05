@@ -7,13 +7,14 @@ from blog.apps.post import crud
 from blog.apps.post.schemas import PostsForResponse, PostInResponse, BasePostCategory, PostInUpdate, \
     PostInCreate, PostCategoryForResponse, PostCategoriesForResponse, PostForResponse, PostCategoriesSimpleForResponse
 from blog.apps.user.models import UserModel
+from blog.pkg.response import resp_200
 from blog.pkg.security import oauth2_schema, get_current_user
 
 router = APIRouter()
 
 
 @router.post(
-    '/',
+    '',
     description='',
     summary='创建文章'
 )
@@ -28,7 +29,7 @@ async def create_post(
 
 
 @router.get(
-    '/',
+    '',
     response_model=PostsForResponse,
     response_model_by_alias='data',
     description='',
@@ -49,9 +50,7 @@ async def list_post(
     response_model=PostCategoriesForResponse,
 )
 async def list_post_category():
-    print("ok")
     post_categories = crud.list_post_category()
-    print(post_categories)
     return PostCategoriesForResponse(data=post_categories)
 
 
@@ -78,9 +77,7 @@ async def create_post_category(
     user: UserModel = Depends(get_current_user)
 ):
     crud.create_post_category(post_category)
-    return {
-        'status': 'ok'
-    }
+    return resp_200()
 
 
 @router.delete(
