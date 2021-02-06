@@ -15,7 +15,7 @@ SQLITE_PATH = ''
 
 
 try:
-    if os.path.exists(os.path.join(os.path.dirname(__file__), 'private.py')):
+    if os.path.exists(os.path.join(BASE_DIR, 'private.py')):
         from private import *
 except Exception as e:
     pass
