@@ -12,5 +12,8 @@ def sqlite_connect():
     from blog.apps.project.model import ProjectModel, ProjectCategoryModel
     from blog.apps.user.models import UserModel
 
-    sqlite_db.connect()
+    try:
+        sqlite_db.connect()
+    except Exception as e:
+        print(settings.SQLITE_PATH)
     sqlite_db.create_tables([PostModel, PostCategoryModel, ProjectModel, ProjectCategoryModel, InfoModel, BlogrolModel, UserModel])
