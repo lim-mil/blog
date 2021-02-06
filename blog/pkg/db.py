@@ -3,7 +3,7 @@ from peewee import SqliteDatabase
 from blog import settings
 
 
-sqlite_db = SqliteDatabase(settings.SQLITE_PATH, pragmas={'foreign_key': 1})
+sqlite_db = SqliteDatabase(settings.SQLITE_PATH)
 
 
 def sqlite_connect():
