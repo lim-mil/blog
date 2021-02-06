@@ -10,6 +10,7 @@ from blog.apps.exception_handler import register_exception_handlers
 from blog.pkg.db import sqlite_connect
 from blog.pkg.exception import FORBIDDEN_403_Exception
 from blog.pkg.response import resp_403
+from blog.settings import HOST, PORT
 
 app = FastAPI()
 
@@ -46,4 +47,4 @@ def start():
 
 if __name__ == '__main__':
     start()
-    uvicorn.run(app, port=7331)
+    uvicorn.run(app, host=HOST, port=PORT)
