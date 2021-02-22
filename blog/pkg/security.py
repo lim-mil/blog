@@ -10,6 +10,7 @@ from blog.apps.user.models import UserModel
 from blog.apps.user.schemas import BaseUser
 from blog.pkg.exception import BAD_REQUEST_400_Exception, FORBIDDEN_403_Exception, UNAUTHORIZED_401_Exception
 
+
 oauth2_schema = OAuth2PasswordBearer(tokenUrl='/api/v1/user/token')
 
 
