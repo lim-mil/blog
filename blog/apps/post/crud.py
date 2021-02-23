@@ -1,6 +1,6 @@
 from typing import Optional, List
 
-from blog.apps.post.models import PostModel, PostCategoryModel
+from blog.apps.post.models import PostModel, PostCategoryModel, post_model_manager
 from blog.apps.post.schemas import PostInCreate, PostInResponse, PostCategoryInPost, PostInUpdate, \
     BasePostCategory, PostsInResponse, PostCategoryInResponse, PostInPostCategory, PostCategorySimpleInResponse
 
@@ -9,8 +9,8 @@ def create_post(post: PostInCreate):
     PostModel.create(**post.dict())
 
 
-def retrive_post_by_id(id: int) -> PostInResponse:
-    post_model: Optional[PostModel] = PostModel.get_by_id(id)
+async def retrive_post_by_id(id: int) -> PostInResponse:
+    post_model: Optional[PostModel] = await post_model_manager.get_by_id(id)
     post = PostInResponse.from_orm(post_model)
     post.category = PostCategoryInPost.from_orm(PostCategoryModel.get_by_id(post_model.category_id))
     return post

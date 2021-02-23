@@ -63,7 +63,7 @@ async def list_post_category():
 async def retrive_post(
     post_id: int = Path(..., gt=0, description='文章 id'),
 ):
-    post = crud.retrive_post_by_id(post_id)
+    post = await crud.retrive_post_by_id(post_id)
     return PostForResponse(data=post.dict())
 
 

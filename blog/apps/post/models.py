@@ -1,6 +1,6 @@
 from peewee import CharField, TextField, IntegerField
 
-from blog.models import BaseModel
+from blog.models import BaseModel, BaseManager
 
 
 class POST_STATUS:
@@ -24,3 +24,17 @@ class PostCategoryModel(BaseModel):
     def posts_set(self):
         posts = PostModel.select(PostModel.id).where(PostModel.category_id == self.id)
         return set(post.id for post in posts)
+
+
+class PostModelManager(BaseManager):
+    model = PostModel
+
+
+post_model_manager = PostModelManager()
+
+
+class PostCategoryModelManager(BaseManager):
+    model = PostCategoryModel
+
+
+post_category_model_manager = PostCategoryModelManager()
