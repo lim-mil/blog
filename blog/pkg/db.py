@@ -1,18 +1,16 @@
-from peewee import SqliteDatabase
-from peewee_async import MySQLDatabase
+from peewee import SqliteDatabase, MySQLDatabase
+from playhouse.db_url import connect
 
 from blog import settings
 
 
-sqlite_db = SqliteDatabase(settings.SQLITE_PATH)
-MYSQL_DB = MySQLDatabase(settings.DB_NAME, **{'charset': 'utf8', 'use_unicode': True, 'host': settings.DB_HOST, 'port': settings.DB_PORT,
-                                        'user': settings.DB_USER, 'password': settings.DB_PASSWORD})
+MYSQL_DB = connect(settings.MYSQL_URL)
 
 
-def sqlite_connect():
+def create_tables():
     from blog.apps.info.models import InfoModel, BlogrolModel
     from blog.apps.post.models import PostModel, PostCategoryModel
     from blog.apps.project.model import ProjectModel, ProjectCategoryModel
     from blog.apps.user.models import UserModel
 
-    sqlite_db.create_tables([PostModel, PostCategoryModel, ProjectModel, ProjectCategoryModel, InfoModel, BlogrolModel, UserModel])
+    MYSQL_DB.create_tables([PostModel, PostCategoryModel, ProjectModel, ProjectCategoryModel, InfoModel, BlogrolModel, UserModel])

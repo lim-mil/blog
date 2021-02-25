@@ -8,7 +8,7 @@ class InfoModel(BaseModel):
     description = CharField(max_length=256, index=True)
     location = CharField(max_length=64, index=True)
     job = CharField(max_length=64, index=True)
-    about = TextField(index=True)
+    about = TextField()
     link = CharField(max_length=512, index=True)
 
 
