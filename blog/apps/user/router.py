@@ -26,7 +26,7 @@ async def login_for_access_token(
         raise UNAUTHORIZED_401_Exception('密码错误')
 
     token = create_jwt_token(user)
-    return {'access_token': token, 'token_type': 'bearer', 'username': user.username}
+    return resp_200(data={'access_token': token, 'token_type': 'bearer', 'username': user.username})
 
 
 @router.post(

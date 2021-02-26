@@ -23,9 +23,7 @@ async def create_post(
     user: UserModel = Depends(get_current_user)
 ):
     crud.create_post(post)
-    return {
-        'status': 'ok'
-    }
+    return resp_200()
 
 
 @router.get(
@@ -90,9 +88,7 @@ async def delete_post(
     user: UserModel = Depends(get_current_user)
 ):
     crud.delete_post_by_id(post_id)
-    return {
-        'status': 'ok'
-    }
+    return resp_200()
 
 
 @router.delete(
@@ -105,9 +101,7 @@ async def delete_post_category(
     user: UserModel = Depends(get_current_user)
 ):
     crud.delete_post_category_by_id(post_category_id)
-    return {
-        'status': 'ok'
-    }
+    return resp_200()
 
 
 @router.patch(
