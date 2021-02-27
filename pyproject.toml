@@ -15,6 +15,7 @@ python-multipart = "^0.0.5"
 pyjwt = "^2.0.0"
 peewee_async = "^0.7.1"
 aiomysql = "^0.0.21"
+cryptography = "^3.4.6"
 
 [tool.poetry.dev-dependencies]
 pytest = "^5.2"
