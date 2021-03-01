@@ -28,7 +28,7 @@ def create_jwt_token(user: BaseUser):
         'exp': datetime.datetime.utcnow() + datetime.timedelta(minutes=30)
     }
 
-    result = jwt.encode(payload=payload, key=SALT, algorithm='HS256', headers=headers).encode('utf-8')
+    result = jwt.encode(payload=payload, key=SALT, algorithm='HS256', headers=headers)
     return result
 
 
