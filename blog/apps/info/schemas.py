@@ -6,8 +6,8 @@ from blog.schemas import BaseSchema, DatetimeMixin, BaseResponse
 
 
 class BaseInfo(BaseSchema):
-    name: str = Field('limyel', ..., max_length=64)
-    description: str = Field('Pythonista', ..., max_length=256)
+    name: str = Field('limyel', max_length=64)
+    description: str = Field('Pythonista', max_length=256)
     location: str = Field('福州', max_length=64)
     job: str = Field('None', max_length=64)
     link: str = Field('https://github.com/lim-mil', max_length=512)
