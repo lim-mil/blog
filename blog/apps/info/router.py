@@ -13,7 +13,7 @@ router = APIRouter()
 
 
 @router.post(
-    '/',
+    '',
     description='',
     summary='创建个人信息'
 )
@@ -26,7 +26,7 @@ async def create_info(
 
 
 @router.get(
-    '/',
+    '',
     description='',
     summary='获取个人信息',
     response_model=InfoForResponse

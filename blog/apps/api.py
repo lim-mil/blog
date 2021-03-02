@@ -29,6 +29,6 @@ api_v1.include_router(
 
 api_v1.include_router(
     router=user_router,
-    prefix='/user',
+    prefix='/users',
     tags=['user']
 )

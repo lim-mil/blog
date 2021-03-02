@@ -24,7 +24,7 @@ class ResponseContent:
 
 def resp_200(*, data: Any = None, msg: str = 'OK') -> Response:
     return JSONResponse(
-        status_code=HTTPStatus.OK,
+        status_code=200,
         content=ResponseContent(code=HTTPStatus.OK, message=msg, data=data).to_dict()
     )
 
@@ -38,7 +38,7 @@ def resp_201(*, data: Any, msg: str = 'Created') -> Response:
 
 def resp_400(*, data: Any = None, msg: str = 'Bad Request') -> Response:
     return JSONResponse(
-        status_code=HTTPStatus.BAD_REQUEST,
+        status_code=400,
         content=ResponseContent(code=HTTPStatus.BAD_REQUEST, message=msg).to_dict()
     )
 

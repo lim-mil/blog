@@ -16,6 +16,8 @@ pyjwt = "^2.0.0"
 peewee_async = "^0.7.1"
 aiomysql = "^0.0.21"
 cryptography = "^3.4.6"
+httpx = "^0.17.0"
+requests = "^2.25.1"
 
 [tool.poetry.dev-dependencies]
 pytest = "^5.2"
