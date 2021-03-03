@@ -45,37 +45,3 @@ async def register(
         raise BAD_REQUEST_400_Exception(msg="password is different from repassword.")
     crud.create_user(BaseUser(username=user.username, password=user.password))
     return resp_200()
-
-
-
-@router.get(
-    '/github',
-    description='',
-    summary=''
-)
-async def github_auth(
-    code: str,
-    state: str,
-):
-    data = {
-        'client_id': '08534284cc7baa6ce7d4',
-        'client_secret': '472d154c75d72f911403a6bcfbb520d10a542f5b',
-        'code': code,
-        'state': state
-    }
-    # import requests
-    # print(data)
-    # result = requests.post(url='https://github.com/login/oauth/access_token', data=data)
-    # print(result.text)
-
-    async with httpx.AsyncClient() as client:
-        client: AsyncClient
-        headers = {'Accept': 'application/json'}
-        result = await client.post(url='https://github.com/login/oauth/access_token', data=data, headers=headers)
-        result = json.loads(result.text)
-        print(result)
-        headers = {'Authorizetion': f'Bearer {result.get("access_token")}'}
-        result = await client.get('https://api.github.com/user')
-        print(result.text)
-    return resp_200()
-
