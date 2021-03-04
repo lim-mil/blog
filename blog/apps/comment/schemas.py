@@ -12,9 +12,9 @@ class CommentInResponse(BaseSchema, IdMixin, DatetimeMixin):
 
 class CommentInCreate(BaseSchema):
     content: str
-    oauth_id: Optional[int]
+    oauth_id: int
     post_id: int
-    target_oauth_id: int
+    target_oauth_id: Optional[int]
 
 
 class CommentForResponse(BaseResponse):

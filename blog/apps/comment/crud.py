@@ -13,7 +13,8 @@ def retrive_comments_by_post_id(id: int) -> List[CommentInResponse]:
         comment_model: CommentModel
         comment = CommentInResponse.from_orm(comment_model)
         comment.oauth = OauthInResponse.from_orm(OauthModel.get_by_id(comment_model.oauth_id))
-        comment.target_oauth = OauthInResponse.from_orm(OauthModel.get_by_id(comment_model.target_oauth_id))
+        if comment_model.target_oauth_id:
+            comment.target_oauth = OauthInResponse.from_orm(OauthModel.get_by_id(comment_model.target_oauth_id))
         result.append(comment)
     return result
 
