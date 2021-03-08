@@ -5,7 +5,7 @@ RUN apt update && apt install libmediainfo-dev mediainfo libmediainfo-dev libmed
 RUN mkdir /blog
 WORKDIR /blog/blog
 COPY . /blog
-RUN pip install -r requirements.txt
+RUN pip install -r /blog/requirements.txt
 
 EXPOSE 8090
 
