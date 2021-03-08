@@ -4,10 +4,16 @@ aiomysql==0.0.21
 aiosqlite==0.16.0
 atomicwrites==1.4.0
 attrs==20.3.0
+certifi==2020.12.5
+cffi==1.14.5
+chardet==4.0.0
 click==7.1.2
 colorama==0.4.4
 fastapi==0.61.2
 h11==0.11.0
+httpcore==0.12.3
+httpx==0.17.0
+idna==2.10
 iso8601==0.1.14
 more-itertools==8.6.0
 packaging==20.4
@@ -15,6 +21,7 @@ peewee==3.14.0
 peewee-async==0.7.1
 pluggy==0.13.1
 py==1.9.0
+pycparser==2.20
 pydantic==1.7.2
 PyJWT==2.0.0
 PyMySQL==0.9.3
@@ -23,9 +30,12 @@ PyPika==0.44.1
 pytest==5.4.3
 python-multipart==0.0.5
 pytz==2020.5
+rfc3986==1.4.0
 six==1.15.0
+sniffio==1.2.0
 starlette==0.13.6
 tortoise-orm==0.16.21
 typing-extensions==3.7.4.3
+urllib3==1.26.3
 uvicorn==0.12.2
 wcwidth==0.2.5
