@@ -28,9 +28,9 @@ app.add_middleware(
 )
 
 # 动态资源
-app.mount('/media', StaticFiles(directory='media'), name='media')
+app.mount('/media', StaticFiles(directory='./media'), name='media')
 # 静态资源
-app.mount('/static', StaticFiles(directory='static'), name='static')
+app.mount('/static', StaticFiles(directory='./static'), name='static')
 
 
 @app.on_event('startup')
