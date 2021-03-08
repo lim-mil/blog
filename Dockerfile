@@ -10,4 +10,4 @@ ENV PYTHONPATH=${PYTHONPATH}:/blog
 
 EXPOSE 7331
 
-CMD python3 /blog/blog/main.py
+CMD python3 blog/main.py
