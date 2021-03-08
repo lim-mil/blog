@@ -8,6 +8,6 @@ WORKDIR /blog
 RUN pip install -r /blog/requirements.txt -i https://mirrors.tuna.tsinghua.edu.cn/pypi/web/simple
 ENV PYTHONPATH=${PYTHONPATH}:/blog
 
-EXPOSE 8090
+EXPOSE 7331
 
 CMD python3 /blog/blog/main.py
