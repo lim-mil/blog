@@ -5,7 +5,7 @@ RUN apt update && apt install libmediainfo-dev mediainfo libmediainfo-dev libmed
 RUN mkdir /blog
 COPY . /blog
 WORKDIR /blog/blog
-RUN pip install -r /blog/requirements.txt
+RUN pip install -r /blog/requirements.txt -i https://mirrors.tuna.tsinghua.edu.cn/pypi/web/simple
 
 EXPOSE 8090
 
