@@ -1,3 +1,5 @@
+import os
+
 import uvicorn
 from fastapi import FastAPI, APIRouter
 from fastapi.exceptions import RequestValidationError
@@ -5,6 +7,7 @@ from fastapi.middleware.cors import CORSMiddleware
 from fastapi.staticfiles import StaticFiles
 from fastapi.requests import Request
 
+from blog import settings
 from blog.apps.api import api_v1
 from blog.apps.exception_handler import register_exception_handlers
 from blog.pkg.db import create_tables
@@ -28,9 +31,9 @@ app.add_middleware(
 )
 
 # 动态资源
-app.mount('/media', StaticFiles(directory='./media'), name='media')
+app.mount('/media', StaticFiles(directory=os.path.join(settings.BASE_DIR, 'media')), name='media')
 # 静态资源
-app.mount('/static', StaticFiles(directory='./static'), name='static')
+app.mount('/static', StaticFiles(directory=os.path.join(settings.BASE_DIR, 'static')), name='static')
 
 
 @app.on_event('startup')
