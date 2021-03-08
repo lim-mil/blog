@@ -9,4 +9,4 @@ RUN pip install -r /blog/requirements.txt
 
 EXPOSE 8090
 
-CMD python3 /blog/main.py
+CMD python3 /blog/blog/main.py
