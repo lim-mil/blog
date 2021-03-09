@@ -3,6 +3,7 @@ name = "blog"
 version = "0.1.0"
 description = ""
 authors = ["limyel <limyel@qq.com>"]
+repository = "https://mirrors.tuna.tsinghua.edu.cn/pypi/web/simple"
 
 [tool.poetry.dependencies]
 python = "^3.8"

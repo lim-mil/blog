@@ -5,7 +5,9 @@ RUN apt update && apt install libmediainfo-dev mediainfo libmediainfo-dev libmed
 RUN mkdir /blog
 COPY . /blog
 WORKDIR /blog
-RUN pip install -r requirements.txt -i https://mirrors.tuna.tsinghua.edu.cn/pypi/web/simple
+RUN pip install poetry
+RUN poetry shell && poetry install
+#RUN pip install -r requirements.txt -i https://mirrors.tuna.tsinghua.edu.cn/pypi/web/simple
 ENV PYTHONPATH=${PYTHONPATH}:/blog
 
 EXPOSE 7331
