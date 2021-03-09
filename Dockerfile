@@ -6,7 +6,8 @@ RUN mkdir /blog
 COPY . /blog
 WORKDIR /blog
 RUN pip install poetry -i https://mirrors.tuna.tsinghua.edu.cn/pypi/web/simple
-RUN poetry shell && poetry install
+RUN poetry shell
+RUN poetry install
 #RUN pip install -r requirements.txt -i https://mirrors.tuna.tsinghua.edu.cn/pypi/web/simple
 ENV PYTHONPATH=${PYTHONPATH}:/blog
 
