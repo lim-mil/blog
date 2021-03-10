@@ -4,7 +4,7 @@ from playhouse.db_url import connect
 from blog import settings
 
 
-MYSQL_DB = connect(settings.MYSQL_URL)
+MYSQL_DB = connect(settings.MYSQL_URL, timeout=1800)
 
 
 def create_tables():
