@@ -1,0 +1,26 @@
+kind: pipeline
+type: docker
+name: blog
+
+steps:
+  - name: backend
+    pull: if-not-exists
+    image: appleboy/drone-ssh:1.5.7
+    settings:
+      host: 0.0.0.0
+      username: root
+      password:
+        from_secret: ssh_password
+      port: 22
+      script:
+        - docker stop blog
+        - docker container rm -f blog
+        - docker image rm blog
+        - cd /home/ubuntu/blog
+        - docker build -t blog .
+        - docker -d -p 127.0.0.1:7331:7331 --name blog blog
+
+volumes:
+  - name: data
+    host:
+      path: /data/drone/blog
