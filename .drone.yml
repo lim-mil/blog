@@ -12,7 +12,6 @@ steps:
       rsa:
         from_secret: rsa
     commands:
-      - git config --global http.postBuffer 5242880000
       - mkdir ~/.ssh && cd ~/.ssh
       - pwd
       - echo $rsa
