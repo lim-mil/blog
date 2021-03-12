@@ -10,8 +10,7 @@ steps:
     image: alpine/git
     commands:
       - git config --global http.postBuffer 5242880000
-      - git remote set-url origin git@github.com:lim-mil/blog.git
-      - git clone git@github.com:lim-mil/blog.git .
+      - git clone https://github.com.cnpmjs.org/lim-mil/blog.git .
 #    - git checkout $DRONE_COMMIT
 
   - name: backend
