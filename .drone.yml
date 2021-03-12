@@ -19,6 +19,8 @@ steps:
         - cd /home/ubuntu/blog
         - docker build -t blog .
         - docker -d -p 127.0.0.1:7331:7331 --name blog blog
+    when:
+      branch: master
 
 volumes:
   - name: data
