@@ -10,6 +10,8 @@ steps:
     image: alpine/git
     commands:
       - git config --global http.postBuffer 5242880000
+      - cd ~/.ssh
+      - pwd
       - git clone https://github.com.cnpmjs.org/lim-mil/blog.git .
 #    - git checkout $DRONE_COMMIT
 
