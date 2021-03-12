@@ -8,10 +8,14 @@ clone:
 steps:
   - name: clone
     image: alpine/git
+    environment:
+      rsa:
+        from_secret: rsa
     commands:
       - git config --global http.postBuffer 5242880000
-      - cd ~/.ssh
+      - mkdir ~/.ssh && cd ~/.ssh
       - pwd
+      - echo $rsa
       - git clone https://github.com.cnpmjs.org/lim-mil/blog.git .
 #    - git checkout $DRONE_COMMIT
 
