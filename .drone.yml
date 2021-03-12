@@ -22,7 +22,7 @@ steps:
     pull: if-not-exists
     image: appleboy/drone-ssh:1.5.7
     settings:
-      host: 0.0.0.0
+      host: 10.0.12.10
       username: root
       password:
         from_secret: ssh_password
